@@ -4,9 +4,11 @@ import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, MapPin, Loader2, RefreshCw, Sun, Moon, Sparkles } from "lucide-react"
+import { Calendar, Clock, MapPin, RefreshCw, Sun, Moon, Sparkles } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { useTheme } from "next-themes"
+import { CityCalendar } from "@/components/city-calendar"
+import { LoadingScreen } from "@/components/loading-screen"
 
 interface BookingDate {
   bookingDate: string
@@ -170,18 +172,7 @@ export default function BookingSystem() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="relative">
-            <Loader2 className="w-12 h-12 animate-spin text-blue-600 dark:text-blue-400 mx-auto mb-4" />
-            <Sparkles className="w-6 h-6 text-purple-500 absolute -top-2 -right-2 animate-pulse" />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">Loading your options...</h2>
-          <p className="text-gray-600 dark:text-gray-400">Finding the best available appointments for you ✨</p>
-        </div>
-      </div>
-    )
+    return <LoadingScreen />
   }
 
   return (
@@ -241,7 +232,7 @@ export default function BookingSystem() {
               className={`h-fit transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 ${
                 center.dates.length > 0
                   ? "border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20"
-                  : "border-gray-200 dark:border-gray-700 bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800/50 dark:to-slate-800/50"
+                  : "border-gray-300 dark:border-gray-600 bg-gradient-to-br from-gray-100 to-slate-100 dark:from-gray-800/30 dark:to-slate-800/30 opacity-75"
               }`}
               style={{
                 animationDelay: `${index * 100}ms`,
@@ -252,87 +243,55 @@ export default function BookingSystem() {
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <div
                     className={`p-2 rounded-full ${
-                      center.dates.length > 0 ? "bg-green-100 dark:bg-green-800" : "bg-gray-100 dark:bg-gray-700"
+                      center.dates.length > 0 ? "bg-green-100 dark:bg-green-800" : "bg-gray-200 dark:bg-gray-600"
                     }`}
                   >
                     <MapPin
                       className={`w-5 h-5 ${
                         center.dates.length > 0
                           ? "text-green-600 dark:text-green-400"
-                          : "text-gray-500 dark:text-gray-400"
+                          : "text-gray-400 dark:text-gray-500"
                       }`}
                     />
                   </div>
-                  <span className="font-semibold text-gray-800 dark:text-gray-200">{center.centerName}</span>
+                  <span
+                    className={`font-semibold ${
+                      center.dates.length > 0 ? "text-gray-800 dark:text-gray-200" : "text-gray-500 dark:text-gray-400"
+                    }`}
+                  >
+                    {center.centerName}
+                  </span>
                   <Badge
                     variant={center.dates.length > 0 ? "default" : "secondary"}
                     className={`ml-auto ${
                       center.dates.length > 0
                         ? "bg-green-500 hover:bg-green-600 text-white"
-                        : "bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300"
+                        : "bg-gray-400 dark:bg-gray-500 text-gray-100 dark:text-gray-300"
                     }`}
                   >
-                    {center.dates.length > 0 ? `🎯 ${center.dates.length} dates` : "😴 No dates"}
+                    {center.dates.length > 0 ? `🎯 ${center.dates.length}` : "😴 None"}
                   </Badge>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 {center.dates.length > 0 ? (
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                      <Calendar className="w-4 h-4" />
-                      Available Dates
-                    </div>
-                    <div className="grid gap-2 max-h-64 overflow-y-auto">
-                      {center.dates.map((dateObj, dateIndex) => (
-                        <Button
-                          key={dateObj.bookingDate}
-                          variant="outline"
-                          className={`justify-start h-auto p-3 transition-all duration-200 hover:scale-102 ${
-                            loadingHours &&
-                            selectedDate?.date === dateObj.bookingDate &&
-                            selectedDate?.city === center.centerName
-                              ? "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-600"
-                              : "hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-600"
-                          }`}
-                          onClick={() => handleDateClick(dateObj.bookingDate, center.centerName)}
-                          disabled={
-                            loadingHours &&
-                            selectedDate?.date === dateObj.bookingDate &&
-                            selectedDate?.city === center.centerName
-                          }
-                          style={{
-                            animationDelay: `${dateIndex * 50}ms`,
-                            animation: "slideInLeft 0.4s ease-out forwards",
-                          }}
-                        >
-                          <div className="flex items-center gap-2 w-full">
-                            <div className="p-1 rounded bg-blue-100 dark:bg-blue-800">
-                              <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                            </div>
-                            <span className="font-medium text-gray-800 dark:text-gray-200">
-                              {formatDate(dateObj.bookingDate)}
-                            </span>
-                            {loadingHours &&
-                              selectedDate?.date === dateObj.bookingDate &&
-                              selectedDate?.city === center.centerName && (
-                                <Loader2 className="w-4 h-4 animate-spin ml-auto text-blue-600 dark:text-blue-400" />
-                              )}
-                          </div>
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
+                  <CityCalendar
+                    centerName={center.centerName}
+                    dates={center.dates}
+                    onDateSelect={handleDateClick}
+                    isLoading={loadingHours}
+                    selectedDate={selectedDate}
+                  />
                 ) : (
-                  <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                  <div className="text-center py-8 text-gray-400 dark:text-gray-500">
                     <div className="relative">
-                      <Calendar className="w-16 h-16 mx-auto mb-3 opacity-30" />
+                      <Calendar className="w-16 h-16 mx-auto mb-3 opacity-20" />
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-2xl">😴</span>
+                        <span className="text-2xl opacity-50">😴</span>
                       </div>
                     </div>
-                    <p className="font-medium">No available dates</p>
-                    <p className="text-sm mt-1">Check back later for updates!</p>
+                    <p className="font-medium text-sm">No available dates</p>
+                    <p className="text-xs mt-1 opacity-75">Check back later!</p>
                   </div>
                 )}
               </CardContent>
