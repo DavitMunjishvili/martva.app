@@ -11,6 +11,7 @@ export async function GET() {
     });
 
     if (!response.ok) {
+      console.log(await response.json());
       throw new Error("Failed to fetch from backend");
     }
 
