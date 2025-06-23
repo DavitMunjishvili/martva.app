@@ -1,3 +1,4 @@
+import { ENV } from "@/lib/config";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -12,19 +13,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Replace 'localhost:8080' with your actual Go backend URL
+    const formattedDate = (date as string).split("-").reverse().join("-");
+
     const response = await fetch(
-      "https://driving-license-exams.fly.dev/api/available-hours",
+      `${ENV.API_URL}/api/available-hours?centerId=${city}&examDate=${formattedDate}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ date, city }),
       },
     );
 
     if (!response.ok) {
+      console.log(await response.json());
       throw new Error("Failed to fetch from backend");
     }
 
