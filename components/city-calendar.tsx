@@ -107,6 +107,7 @@ export function CityCalendar({
       {/* Calendar */}
       <div className="relative">
         <Calendar
+          weekStartsOn={1}
           mode="single"
           month={currentMonth}
           onMonthChange={setCurrentMonth}
