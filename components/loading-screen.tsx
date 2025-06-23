@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Calendar, Clock, MapPin, Sparkles, Star } from "lucide-react"
+import { useEffect, useState } from "react";
+import { Calendar, Clock, MapPin, Sparkles, Star } from "lucide-react";
 
 const loadingMessages = [
   "🔍 Scanning available appointments...",
@@ -9,31 +9,31 @@ const loadingMessages = [
   "🏢 Connecting to booking centers...",
   "⚡ Loading the latest updates...",
   "🎯 Finding your perfect time slot...",
-]
+];
 
 export function LoadingScreen() {
-  const [messageIndex, setMessageIndex] = useState(0)
-  const [progress, setProgress] = useState(0)
+  const [messageIndex, setMessageIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     // Cycle through messages
     const messageInterval = setInterval(() => {
-      setMessageIndex((prev) => (prev + 1) % loadingMessages.length)
-    }, 1500)
+      setMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+    }, 1500);
 
     // Simulate progress
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 90) return prev
-        return prev + Math.random() * 15
-      })
-    }, 200)
+        if (prev >= 90) return prev;
+        return prev + Math.random() * 15;
+      });
+    }, 200);
 
     return () => {
-      clearInterval(messageInterval)
-      clearInterval(progressInterval)
-    }
-  }, [])
+      clearInterval(messageInterval);
+      clearInterval(progressInterval);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 flex items-center justify-center relative overflow-hidden">
@@ -46,11 +46,10 @@ export function LoadingScreen() {
 
       {/* Floating icons */}
       <div className="absolute inset-0 pointer-events-none">
-        <Calendar className="absolute top-1/4 left-1/6 w-8 h-8 text-blue-400/40 animate-bounce delay-300" />
-        <Clock className="absolute top-1/3 right-1/5 w-6 h-6 text-purple-400/40 animate-bounce delay-700" />
-        <MapPin className="absolute bottom-1/3 left-1/5 w-7 h-7 text-pink-400/40 animate-bounce delay-500" />
-        <Star className="absolute top-1/2 left-1/12 w-5 h-5 text-yellow-400/40 animate-bounce delay-1000" />
-        <Sparkles className="absolute bottom-1/4 right-1/6 w-6 h-6 text-green-400/40 animate-bounce delay-200" />
+        <Clock className="absolute top-1/3 right-2/3 w-6 h-6 text-purple-400/40 animate-bounce delay-700" />
+        <MapPin className="absolute bottom-1/3 left-1/4 w-7 h-7 text-pink-400/40 animate-bounce delay-500" />
+        <Star className="absolute top-1/2 left-3/4 w-5 h-5 text-yellow-400/40 animate-bounce delay-1000" />
+        <Sparkles className="absolute bottom-1/4 right-2/4 w-6 h-6 text-green-400/40 animate-bounce delay-200" />
       </div>
 
       <div className="text-center z-10 max-w-md mx-auto px-6">
@@ -78,7 +77,7 @@ export function LoadingScreen() {
 
           {/* Sparkles around the loader */}
           <Sparkles className="absolute -top-2 -right-2 w-6 h-6 text-yellow-500 animate-ping" />
-          <Star className="absolute -bottom-1 -left-1 w-4 h-4 text-pink-500 animate-ping delay-500" />
+          <Star className="absolute -bottom-2 -left-1 w-4 h-4 text-pink-500 animate-ping delay-500" />
         </div>
 
         {/* Loading text */}
@@ -88,7 +87,10 @@ export function LoadingScreen() {
           </h2>
 
           <div className="h-6 flex items-center justify-center">
-            <p key={messageIndex} className="text-gray-600 dark:text-gray-300 animate-fade-in text-lg">
+            <p
+              key={messageIndex}
+              className="text-gray-600 dark:text-gray-300 animate-fade-in text-lg"
+            >
               {loadingMessages[messageIndex]}
             </p>
           </div>
@@ -110,8 +112,8 @@ export function LoadingScreen() {
         {/* Fun fact */}
         <div className="mt-8 p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg border border-white/20 dark:border-gray-700/50">
           <p className="text-sm text-gray-600 dark:text-gray-300">
-            💡 <strong>Did you know?</strong> We refresh data every 5 minutes to ensure you get the most up-to-date
-            availability!
+            💡 <strong>Did you know?</strong> We refresh data every 5 minutes to
+            ensure you get the most up-to-date availability!
           </p>
         </div>
       </div>
@@ -127,11 +129,11 @@ export function LoadingScreen() {
             transform: translateY(0);
           }
         }
-        
+
         .animate-fade-in {
           animation: fade-in 0.5s ease-out;
         }
       `}</style>
     </div>
-  )
+  );
 }
