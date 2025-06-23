@@ -131,7 +131,7 @@ export default function BookingSystem() {
 
       toast({
         title: "🕐 Time slots loaded!",
-        description: `Found ${data.length || 0} available time slots for ${city}. \n ${data.map((d) => d.timeFrameName).join(", ")}`,
+        description: `Found ${data.length || 0} available time slots for ${city}.`,
       });
     } catch (err) {
       const errorMessage =
