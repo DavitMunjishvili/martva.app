@@ -247,7 +247,7 @@ export default function BookingSystem() {
         </div>
 
         {selectedDate && availableHours.length > 0 && (
-          <Card className="mt-8 border-2 border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 shadow-xl">
+          <Card className="my-8 border-2 border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-xl">
                 <div className="p-2 rounded-full bg-purple-100 dark:bg-purple-800">
