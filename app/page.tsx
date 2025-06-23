@@ -181,13 +181,6 @@ export default function BookingSystem() {
     fetchAvailableHours(centerId, date, city);
   };
 
-  const handleHourSelect = (hour: string) => {
-    toast({
-      title: "🎉 Great choice!",
-      description: `You selected ${selectedDate?.city} on ${selectedDate?.date} at ${hour}. Ready to book?`,
-    });
-  };
-
   const handleRefresh = () => {
     fetchAvailableDates(true);
   };
@@ -252,6 +245,67 @@ export default function BookingSystem() {
             </p>
           )}
         </div>
+
+        {selectedDate && availableHours.length > 0 && (
+          <Card className="mt-8 border-2 border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 shadow-xl">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-xl">
+                <div className="p-2 rounded-full bg-purple-100 dark:bg-purple-800">
+                  <Clock className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  Available Hours - {selectedDate.city}
+                </span>
+                <Badge
+                  variant="outline"
+                  className="border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300"
+                >
+                  📅 {formatDate(selectedDate.date)}
+                </Badge>
+                <Sparkles className="w-5 h-5 text-yellow-500 animate-pulse ml-auto" />
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+                {availableHours.map((hour, index) => (
+                  <Button
+                    key={hour.timeFrameId}
+                    variant="outline"
+                    className="justify-center h-12 transition-all duration-200 hover:scale-105 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 dark:hover:from-green-900/20 dark:hover:to-emerald-900/20 hover:border-green-300 dark:hover:border-green-600 hover:shadow-md"
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animation: "bounceIn 0.5s ease-out forwards",
+                    }}
+                  >
+                    <div className="p-1 rounded bg-green-100 dark:bg-green-800 mr-2">
+                      <Clock className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    </div>
+                    <span className="font-semibold">{hour.timeFrameName}</span>
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {selectedDate && availableHours.length === 0 && !loadingHours && (
+          <Card className="mt-8 border-2 border-orange-200 dark:border-orange-800 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20">
+            <CardContent className="text-center py-12">
+              <div className="relative">
+                <Clock className="w-20 h-20 mx-auto mb-4 text-orange-300 dark:text-orange-600" />
+                <span className="absolute inset-0 flex items-center justify-center text-3xl">
+                  😔
+                </span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                No available hours for this date
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400">
+                Try selecting a different date or check back later!
+              </p>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Centers Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -334,69 +388,6 @@ export default function BookingSystem() {
             </Card>
           ))}
         </div>
-
-        {/* Available Hours Section */}
-        {selectedDate && availableHours.length > 0 && (
-          <Card className="mt-8 border-2 border-purple-200 dark:border-purple-800 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 shadow-xl">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3 text-xl">
-                <div className="p-2 rounded-full bg-purple-100 dark:bg-purple-800">
-                  <Clock className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-                </div>
-                <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  Available Hours - {selectedDate.city}
-                </span>
-                <Badge
-                  variant="outline"
-                  className="border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300"
-                >
-                  📅 {formatDate(selectedDate.date)}
-                </Badge>
-                <Sparkles className="w-5 h-5 text-yellow-500 animate-pulse ml-auto" />
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-                {availableHours.map((hour, index) => (
-                  <Button
-                    key={hour.timeFrameId}
-                    variant="outline"
-                    className="justify-center h-12 transition-all duration-200 hover:scale-105 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 dark:hover:from-green-900/20 dark:hover:to-emerald-900/20 hover:border-green-300 dark:hover:border-green-600 hover:shadow-md"
-                    onClick={() => handleHourSelect(hour.timeFrameName)}
-                    style={{
-                      animationDelay: `${index * 50}ms`,
-                      animation: "bounceIn 0.5s ease-out forwards",
-                    }}
-                  >
-                    <div className="p-1 rounded bg-green-100 dark:bg-green-800 mr-2">
-                      <Clock className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    </div>
-                    <span className="font-semibold">{hour.timeFrameName}</span>
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {selectedDate && availableHours.length === 0 && !loadingHours && (
-          <Card className="mt-8 border-2 border-orange-200 dark:border-orange-800 bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20">
-            <CardContent className="text-center py-12">
-              <div className="relative">
-                <Clock className="w-20 h-20 mx-auto mb-4 text-orange-300 dark:text-orange-600" />
-                <span className="absolute inset-0 flex items-center justify-center text-3xl">
-                  😔
-                </span>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                No available hours for this date
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400">
-                Try selecting a different date or check back later!
-              </p>
-            </CardContent>
-          </Card>
-        )}
       </div>
 
       <style jsx>{`
