@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, CalendarIcon } from "lucide-react";
-import { format, isSameDay, addMonths, subMonths } from "date-fns";
+import { format, isSameDay, addMonths, subMonths, parse } from "date-fns";
 
 interface BookingDate {
   bookingDate: string;
@@ -28,7 +28,9 @@ export function CityCalendar({
   isLoading,
   selectedDate,
 }: CityCalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(
+    parse(dates[0].bookingDate, "dd-MM-yyyy", new Date()),
+  );
 
   // Convert booking dates to Date objects
   const availableDates = dates.map((dateObj) => {
