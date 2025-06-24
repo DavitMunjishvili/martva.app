@@ -313,7 +313,7 @@ export default function BookingSystem() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {loading
             ? // Show skeleton cards while loading
-              Array.from({ length: 8 }).map((_, index) => (
+              Array.from({ length: 10 }).map((_, index) => (
                 <div
                   key={index}
                   style={{
