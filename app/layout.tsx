@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 export const metadata: Metadata = {
   title: "Booking System - Find Your Perfect Appointment",
   description: "Book your driving license appointment easily",
+    generator: 'v0.dev'
 };
 
 export default function RootLayout({
