@@ -307,11 +307,12 @@ export default function BookingSystem() {
           </Card>
         )}
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {loading
             ? Array.from({ length: 10 }).map((_, index) => (
                 <div
                   key={index}
+                  className="max-w-sm w-full"
                   style={{
                     animationDelay: `${index * 100}ms`,
                     animation: "fadeInUp 0.6s ease-out forwards",
@@ -323,7 +324,7 @@ export default function BookingSystem() {
             : centers.map((center, index) => (
                 <Card
                   key={center.centerName}
-                  className={`h-fit transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 ${
+                  className={`max-w-sm h-fit transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 ${
                     center.dates.length > 0
                       ? "border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20"
                       : "border-gray-300 dark:border-gray-600 bg-gradient-to-br from-gray-100 to-slate-100 dark:from-gray-800/30 dark:to-slate-800/30 opacity-75"
