@@ -1,20 +1,24 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Clock } from "lucide-react"
-import type { AvailableHoursResponse } from "@/hooks/use-booking-data"
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Clock } from "lucide-react";
+import type { AvailableHoursResponse } from "@/hooks/use-booking-data";
 
 interface TimeSlotsGridProps {
-  availableHours: AvailableHoursResponse[]
+  availableHours: AvailableHoursResponse[];
 }
 
 export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <Badge variant="secondary" className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200">
-          🎉 {availableHours.length} slot{availableHours.length !== 1 ? "s" : ""} available
+        <Badge
+          variant="secondary"
+          className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200"
+        >
+          🎉 {availableHours.length} slot
+          {availableHours.length !== 1 ? "s" : ""} available
         </Badge>
       </div>
 
@@ -36,11 +40,6 @@ export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
           </Button>
         ))}
       </div>
-
-      <div className="text-center pt-4 border-t">
-        <p className="text-sm text-gray-500 dark:text-gray-400">Click on a time slot to book your appointment</p>
-      </div>
-
       <style jsx>{`
         @keyframes bounceIn {
           from {
@@ -54,5 +53,5 @@ export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
         }
       `}</style>
     </div>
-  )
+  );
 }
