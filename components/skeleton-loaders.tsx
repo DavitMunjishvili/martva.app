@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function CenterCardSkeleton() {
   return (
@@ -34,7 +34,10 @@ export function CenterCardSkeleton() {
             {Array.from({ length: 5 }).map((_, weekIndex) => (
               <div key={weekIndex} className="flex w-full gap-1">
                 {Array.from({ length: 7 }).map((_, dayIndex) => (
-                  <Skeleton key={dayIndex} className="h-8 w-8 flex-1 rounded-md" />
+                  <Skeleton
+                    key={dayIndex}
+                    className="h-8 w-8 flex-1 rounded-md"
+                  />
                 ))}
               </div>
             ))}
@@ -47,7 +50,7 @@ export function CenterCardSkeleton() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export function TimeSlotsSkeleton() {
@@ -71,5 +74,5 @@ export function TimeSlotsSkeleton() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

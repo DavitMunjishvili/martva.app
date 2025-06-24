@@ -1,21 +1,26 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin } from "lucide-react"
-import { CityCalendar } from "@/components/city-calendar"
-import type { Center } from "@/hooks/use-booking-data"
-import type { SelectedDate } from "@/hooks/use-date-selection"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, MapPin } from "lucide-react";
+import { CityCalendar } from "@/components/city-calendar";
+import type { Center } from "@/hooks/use-booking-data";
+import type { SelectedDate } from "@/hooks/use-date-selection";
 
 interface CenterCardProps {
-  center: Center
-  index: number
-  selectedDate: SelectedDate | null
-  onDateSelect: (centerId: number, date: string, city: string) => void
+  center: Center;
+  index: number;
+  selectedDate: SelectedDate | null;
+  onDateSelect: (centerId: number, date: string, city: string) => void;
 }
 
-export function CenterCard({ center, index, selectedDate, onDateSelect }: CenterCardProps) {
-  const hasAvailableDates = center.dates.length > 0
+export function CenterCard({
+  center,
+  index,
+  selectedDate,
+  onDateSelect,
+}: CenterCardProps) {
+  const hasAvailableDates = center.dates.length > 0;
 
   return (
     <Card
@@ -33,18 +38,24 @@ export function CenterCard({ center, index, selectedDate, onDateSelect }: Center
         <CardTitle className="flex items-center gap-2 text-lg">
           <div
             className={`p-2 rounded-full ${
-              hasAvailableDates ? "bg-green-100 dark:bg-green-800" : "bg-gray-200 dark:bg-gray-600"
+              hasAvailableDates
+                ? "bg-green-100 dark:bg-green-800"
+                : "bg-gray-200 dark:bg-gray-600"
             }`}
           >
             <MapPin
               className={`w-5 h-5 ${
-                hasAvailableDates ? "text-green-600 dark:text-green-400" : "text-gray-400 dark:text-gray-500"
+                hasAvailableDates
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-gray-400 dark:text-gray-500"
               }`}
             />
           </div>
           <span
             className={`font-semibold ${
-              hasAvailableDates ? "text-gray-800 dark:text-gray-200" : "text-gray-500 dark:text-gray-400"
+              hasAvailableDates
+                ? "text-gray-800 dark:text-gray-200"
+                : "text-gray-500 dark:text-gray-400"
             }`}
           >
             {center.centerName}
@@ -75,7 +86,7 @@ export function CenterCard({ center, index, selectedDate, onDateSelect }: Center
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function EmptyDateState() {
@@ -90,5 +101,5 @@ function EmptyDateState() {
       <p className="font-medium text-sm">No available dates</p>
       <p className="text-xs mt-1 opacity-75">Check back later!</p>
     </div>
-  )
+  );
 }

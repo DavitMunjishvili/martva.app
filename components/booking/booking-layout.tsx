@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import type { ReactNode } from "react"
+import type { ReactNode } from "react";
 
 interface BookingLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export function BookingLayout({ children }: BookingLayoutProps) {
@@ -35,5 +35,5 @@ export function BookingLayout({ children }: BookingLayoutProps) {
         }
       `}</style>
     </div>
-  )
+  );
 }

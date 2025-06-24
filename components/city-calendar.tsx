@@ -1,60 +1,74 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Calendar } from "@/components/ui/calendar"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, CalendarIcon } from "lucide-react"
-import { format, isSameDay, addMonths, subMonths, parse } from "date-fns"
+import { useState } from "react";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, CalendarIcon } from "lucide-react";
+import { format, isSameDay, addMonths, subMonths, parse } from "date-fns";
 
 interface BookingDate {
-  bookingDate: string
-  bookingDateStatus: number
+  bookingDate: string;
+  bookingDateStatus: number;
 }
 
 interface CityCalendarProps {
-  centerId: number
-  centerName: string
-  dates: BookingDate[]
-  onDateSelect: (centerId: number, date: string, city: string) => void
-  selectedDate?: { date: string; city: string } | null
+  centerId: number;
+  centerName: string;
+  dates: BookingDate[];
+  onDateSelect: (centerId: number, date: string, city: string) => void;
+  selectedDate?: { date: string; city: string } | null;
 }
 
-export function CityCalendar({ centerId, centerName, dates, onDateSelect, selectedDate }: CityCalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState(parse(dates[0].bookingDate, "dd-MM-yyyy", new Date()))
+export function CityCalendar({
+  centerId,
+  centerName,
+  dates,
+  onDateSelect,
+  selectedDate,
+}: CityCalendarProps) {
+  const [currentMonth, setCurrentMonth] = useState(
+    parse(dates[0].bookingDate, "dd-MM-yyyy", new Date()),
+  );
 
   // Convert booking dates to Date objects
   const availableDates = dates.map((dateObj) => {
-    const [day, month, year] = dateObj.bookingDate.split("-")
-    return new Date(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day))
-  })
+    const [day, month, year] = dateObj.bookingDate.split("-");
+    return new Date(
+      Number.parseInt(year),
+      Number.parseInt(month) - 1,
+      Number.parseInt(day),
+    );
+  });
 
   // Check if a date is available
   const isDateAvailable = (date: Date) => {
-    return availableDates.some((availableDate) => isSameDay(date, availableDate))
-  }
+    return availableDates.some((availableDate) =>
+      isSameDay(date, availableDate),
+    );
+  };
 
   // Get the original date string format for API call
   const getDateString = (date: Date) => {
-    const day = date.getDate().toString().padStart(2, "0")
-    const month = (date.getMonth() + 1).toString().padStart(2, "0")
-    const year = date.getFullYear()
-    return `${day}-${month}-${year}`
-  }
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   const handleDateClick = (date: Date | undefined) => {
     if (date && isDateAvailable(date)) {
-      const dateString = getDateString(date)
-      onDateSelect(centerId, dateString, centerName)
+      const dateString = getDateString(date);
+      onDateSelect(centerId, dateString, centerName);
     }
-  }
+  };
 
   const goToPreviousMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1))
-  }
+    setCurrentMonth(subMonths(currentMonth, 1));
+  };
 
   const goToNextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1))
-  }
+    setCurrentMonth(addMonths(currentMonth, 1));
+  };
 
   return (
     <div className="w-full">
@@ -98,10 +112,15 @@ export function CityCalendar({ centerId, centerName, dates, onDateSelect, select
           modifiers={{
             available: availableDates,
             loading: (date) => {
-              if (!selectedDate || selectedDate.city !== centerName) return false
-              const [day, month, year] = selectedDate.date.split("-")
-              const selectedDateObj = new Date(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day))
-              return isSameDay(date, selectedDateObj)
+              if (!selectedDate || selectedDate.city !== centerName)
+                return false;
+              const [day, month, year] = selectedDate.date.split("-");
+              const selectedDateObj = new Date(
+                Number.parseInt(year),
+                Number.parseInt(month) - 1,
+                Number.parseInt(day),
+              );
+              return isSameDay(date, selectedDateObj);
             },
           }}
           modifiersStyles={{
@@ -124,11 +143,13 @@ export function CityCalendar({ centerId, centerName, dates, onDateSelect, select
             caption: "hidden", // Hide default caption since we have custom navigation
             table: "w-full border-collapse",
             head_row: "flex w-full",
-            head_cell: "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] flex-1 text-center",
+            head_cell:
+              "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] flex-1 text-center",
             row: "flex w-full mt-1 space-x-1",
             cell: "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 flex-1",
             day: "h-8 w-8 p-0 font-normal aria-selected:opacity-100 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-md transition-colors mx-auto",
-            day_today: "bg-blue-100 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 font-semibold",
+            day_today:
+              "bg-blue-100 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 font-semibold",
             day_disabled: "text-muted-foreground opacity-30 cursor-not-allowed",
             day_outside: "text-muted-foreground opacity-50",
           }}
@@ -152,5 +173,5 @@ export function CityCalendar({ centerId, centerName, dates, onDateSelect, select
         </span>
       </div>
     </div>
-  )
+  );
 }

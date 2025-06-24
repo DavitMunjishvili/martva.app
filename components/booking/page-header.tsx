@@ -1,17 +1,23 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { RefreshCw, Sun, Moon, Sparkles } from "lucide-react"
+import { Button } from "@/components/ui/button";
+import { RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
 
 interface PageHeaderProps {
-  onRefresh: () => void
-  refreshing: boolean
-  lastUpdated: Date | null
-  theme: string | undefined
-  onToggleTheme: () => void
+  onRefresh: () => void;
+  refreshing: boolean;
+  lastUpdated: Date | null;
+  theme: string | undefined;
+  onToggleTheme: () => void;
 }
 
-export function PageHeader({ onRefresh, refreshing, lastUpdated, theme, onToggleTheme }: PageHeaderProps) {
+export function PageHeader({
+  onRefresh,
+  refreshing,
+  lastUpdated,
+  theme,
+  onToggleTheme,
+}: PageHeaderProps) {
   return (
     <div className="text-center mb-8">
       <div className="flex justify-between items-center mb-6">
@@ -35,7 +41,9 @@ export function PageHeader({ onRefresh, refreshing, lastUpdated, theme, onToggle
             variant="outline"
             className="rounded-full border-2 hover:scale-105 transition-transform"
           >
-            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`} />
+            <RefreshCw
+              className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
+            />
             Refresh
           </Button>
         </div>
@@ -48,14 +56,16 @@ export function PageHeader({ onRefresh, refreshing, lastUpdated, theme, onToggle
         <Sparkles className="w-8 h-8 text-yellow-500 absolute -top-2 -right-8 animate-bounce" />
       </div>
       <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Choose your preferred center and date to discover available time slots ⏰
+        Choose your preferred center and date to discover available time slots
+        ⏰
       </p>
 
       {lastUpdated && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-          Last updated: {lastUpdated.toLocaleTimeString()} • Auto-refreshes every 5 minutes
+          Last updated: {lastUpdated.toLocaleTimeString()} • Auto-refreshes
+          every 5 minutes
         </p>
       )}
     </div>
-  )
+  );
 }

@@ -1,18 +1,23 @@
-"use client"
+"use client";
 
-import { CenterCardSkeleton } from "@/components/skeleton-loaders"
-import { CenterCard } from "./center-card"
-import type { Center } from "@/hooks/use-booking-data"
-import type { SelectedDate } from "@/hooks/use-date-selection"
+import { CenterCardSkeleton } from "@/components/skeleton-loaders";
+import { CenterCard } from "./center-card";
+import type { Center } from "@/hooks/use-booking-data";
+import type { SelectedDate } from "@/hooks/use-date-selection";
 
 interface CentersGridProps {
-  centers: Center[]
-  loading: boolean
-  selectedDate: SelectedDate | null
-  onDateSelect: (centerId: number, date: string, city: string) => void
+  centers: Center[];
+  loading: boolean;
+  selectedDate: SelectedDate | null;
+  onDateSelect: (centerId: number, date: string, city: string) => void;
 }
 
-export function CentersGrid({ centers, loading, selectedDate, onDateSelect }: CentersGridProps) {
+export function CentersGrid({
+  centers,
+  loading,
+  selectedDate,
+  onDateSelect,
+}: CentersGridProps) {
   return (
     <div className="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {loading ? (
@@ -29,7 +34,7 @@ export function CentersGrid({ centers, loading, selectedDate, onDateSelect }: Ce
         ))
       )}
     </div>
-  )
+  );
 }
 
 function SkeletonGrid() {
@@ -48,5 +53,5 @@ function SkeletonGrid() {
         </div>
       ))}
     </>
-  )
+  );
 }

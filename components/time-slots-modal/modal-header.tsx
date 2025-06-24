@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
-import { Clock, Calendar, MapPin } from "lucide-react"
-import { formatDateLong } from "@/utils/date-formatter"
+import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Clock, Calendar, MapPin } from "lucide-react";
+import { formatDateLong } from "@/utils/date-formatter";
 
 interface ModalHeaderProps {
-  centerName: string
-  date: string
+  centerName: string;
+  date: string;
 }
 
 export function ModalHeader({ centerName, date }: ModalHeaderProps) {
@@ -32,5 +32,5 @@ export function ModalHeader({ centerName, date }: ModalHeaderProps) {
         </div>
       </DialogTitle>
     </DialogHeader>
-  )
+  );
 }
