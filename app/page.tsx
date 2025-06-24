@@ -195,7 +195,6 @@ export default function BookingSystem() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 py-8">
       <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-between items-center mb-6">
             <div className="flex-1" />
@@ -245,7 +244,6 @@ export default function BookingSystem() {
           )}
         </div>
 
-        {/* Time Slots Section - Show at top when available */}
         {loadingHours && <TimeSlotsSkeleton />}
 
         {selectedDate && availableHours.length > 0 && !loadingHours && (
@@ -309,11 +307,9 @@ export default function BookingSystem() {
           </Card>
         )}
 
-        {/* Centers Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {loading
-            ? // Show skeleton cards while loading
-              Array.from({ length: 10 }).map((_, index) => (
+            ? Array.from({ length: 10 }).map((_, index) => (
                 <div
                   key={index}
                   style={{
@@ -324,8 +320,7 @@ export default function BookingSystem() {
                   <CenterCardSkeleton />
                 </div>
               ))
-            : // Show actual center cards
-              centers.map((center, index) => (
+            : centers.map((center, index) => (
                 <Card
                   key={center.centerName}
                   className={`h-fit transition-all duration-300 hover:scale-105 hover:shadow-xl border-2 ${
