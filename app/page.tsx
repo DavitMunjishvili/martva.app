@@ -1,102 +1,120 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useCallback } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, MapPin, RefreshCw, Sun, Moon, Sparkles } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
-import { useTheme } from "next-themes"
-import { CityCalendar } from "@/components/city-calendar"
-import { CenterCardSkeleton, TimeSlotsSkeleton } from "@/components/skeleton-loaders"
+import { useState, useEffect, useCallback } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  RefreshCw,
+  Sun,
+  Moon,
+  Sparkles,
+} from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useTheme } from "next-themes";
+import { CityCalendar } from "@/components/city-calendar";
+import {
+  CenterCardSkeleton,
+  TimeSlotsSkeleton,
+} from "@/components/skeleton-loaders";
 
 interface BookingDate {
-  bookingDate: string
-  bookingDateStatus: number
+  bookingDate: string;
+  bookingDateStatus: number;
 }
 
 interface Center {
-  centerId: number
-  centerName: string
-  dates: BookingDate[]
+  centerId: number;
+  centerName: string;
+  dates: BookingDate[];
 }
 
 interface AvailableDatesResponse {
-  [key: string]: Center
+  [key: string]: Center;
 }
 
 interface AvailableHoursResponse {
-  timeFrameId: number
-  timeFrameName: string
+  timeFrameId: number;
+  timeFrameName: string;
 }
 
 export default function BookingSystem() {
-  const [centers, setCenters] = useState<Center[]>([])
-  const [loading, setLoading] = useState(true)
-  const [refreshing, setRefreshing] = useState(false)
+  const [centers, setCenters] = useState<Center[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [selectedDate, setSelectedDate] = useState<{
-    date: string
-    city: string
-  } | null>(null)
-  const [availableHours, setAvailableHours] = useState<AvailableHoursResponse[]>([])
-  const [loadingHours, setLoadingHours] = useState(false)
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-  const { toast } = useToast()
-  const { theme, setTheme } = useTheme()
+    date: string;
+    city: string;
+  } | null>(null);
+  const [availableHours, setAvailableHours] = useState<
+    AvailableHoursResponse[]
+  >([]);
+  const [loadingHours, setLoadingHours] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
 
   const fetchAvailableDates = useCallback(
     async (isRefresh = false) => {
       try {
         if (isRefresh) {
-          setRefreshing(true)
+          setRefreshing(true);
         } else {
-          setLoading(true)
+          setLoading(true);
         }
 
-        const response = await fetch("/api/available-dates")
+        const response = await fetch("/api/available-dates");
 
         if (!response.ok) {
-          throw new Error("Failed to fetch available dates")
+          throw new Error("Failed to fetch available dates");
         }
 
-        const data: AvailableDatesResponse = await response.json()
+        const data: AvailableDatesResponse = await response.json();
 
         // Convert object to array and sort by availability
         const centersArray = Object.values(data).sort((a, b) => {
           // Centers with dates first
-          if (a.dates.length > 0 && b.dates.length === 0) return -1
-          if (a.dates.length === 0 && b.dates.length > 0) return 1
+          if (a.dates.length > 0 && b.dates.length === 0) return -1;
+          if (a.dates.length === 0 && b.dates.length > 0) return 1;
           // Then sort by number of available dates (descending)
-          return b.dates.length - a.dates.length
-        })
+          return b.dates.length - a.dates.length;
+        });
 
-        setCenters(centersArray)
-        setLastUpdated(new Date())
+        setCenters(centersArray);
+        setLastUpdated(new Date());
 
         if (isRefresh) {
           toast({
             title: "✨ Data refreshed!",
             description: "Latest availability information loaded successfully.",
-          })
+          });
         }
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "An error occurred"
+        const errorMessage =
+          err instanceof Error ? err.message : "An error occurred";
         toast({
           title: "❌ Oops! Something went wrong",
           description: errorMessage,
           variant: "destructive",
-        })
+        });
       } finally {
-        setLoading(false)
-        setRefreshing(false)
+        setLoading(false);
+        setRefreshing(false);
       }
     },
     [toast],
-  )
+  );
 
-  const fetchAvailableHours = async (centerId: number, date: string, city: string) => {
+  const fetchAvailableHours = async (
+    centerId: number,
+    date: string,
+    city: string,
+  ) => {
     try {
-      setLoadingHours(true)
+      setLoadingHours(true);
 
       const response = await fetch("/api/available-hours", {
         method: "POST",
@@ -104,70 +122,75 @@ export default function BookingSystem() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ date, city: centerId }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch available hours")
+        throw new Error("Failed to fetch available hours");
       }
 
-      const data: AvailableHoursResponse[] = await response.json()
-      setAvailableHours(data || [])
-      setSelectedDate({ date, city })
+      const data: AvailableHoursResponse[] = await response.json();
+      setAvailableHours(data || []);
+      setSelectedDate({ date, city });
 
       toast({
         title: "🕐 Time slots loaded!",
         description: `Found ${data.length || 0} available time slots for ${city}.`,
-      })
+      });
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to fetch hours"
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to fetch hours";
       toast({
         title: "❌ Unable to load time slots",
         description: errorMessage,
         variant: "destructive",
-      })
+      });
     } finally {
-      setLoadingHours(false)
+      setLoadingHours(false);
     }
-  }
+  };
 
   // Initial load
   useEffect(() => {
-    fetchAvailableDates()
-  }, [fetchAvailableDates])
+    fetchAvailableDates();
+  }, [fetchAvailableDates]);
 
   // Auto-refresh every 5 minutes
   useEffect(() => {
     const interval = setInterval(
       () => {
-        fetchAvailableDates(true)
+        fetchAvailableDates(true);
       },
       5 * 60 * 1000,
-    ) // 5 minutes
+    ); // 5 minutes
 
-    return () => clearInterval(interval)
-  }, [fetchAvailableDates])
+    return () => clearInterval(interval);
+  }, [fetchAvailableDates]);
 
   const formatDate = (dateString: string) => {
-    const [day, month, year] = dateString.split("-")
-    const date = new Date(Number.parseInt(year), Number.parseInt(month) - 1, Number.parseInt(day))
+    const [day, month, year] = dateString.split("-");
+    const date = new Date(
+      Number.parseInt(year),
+      Number.parseInt(month) - 1,
+      Number.parseInt(day),
+    );
     return date.toLocaleDateString("en-US", {
       weekday: "short",
       month: "short",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   const handleDateClick = (centerId: number, date: string, city: string) => {
-    fetchAvailableHours(centerId, date, city)
-  }
+    fetchAvailableHours(centerId, date, city);
+  };
 
   const handleRefresh = () => {
-    fetchAvailableDates(true)
-  }
+    fetchAvailableDates(true);
+  };
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 py-8">
@@ -195,7 +218,9 @@ export default function BookingSystem() {
                 variant="outline"
                 className="rounded-full border-2 hover:scale-105 transition-transform"
               >
-                <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`} />
+                <RefreshCw
+                  className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
+                />
                 Refresh
               </Button>
             </div>
@@ -208,12 +233,14 @@ export default function BookingSystem() {
             <Sparkles className="w-8 h-8 text-yellow-500 absolute -top-2 -right-8 animate-bounce" />
           </div>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Choose your preferred center and date to discover available time slots ⏰
+            Choose your preferred center and date to discover available time
+            slots ⏰
           </p>
 
           {lastUpdated && (
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-              Last updated: {lastUpdated.toLocaleTimeString()} • Auto-refreshes every 5 minutes
+              Last updated: {lastUpdated.toLocaleTimeString()} • Auto-refreshes
+              every 5 minutes
             </p>
           )}
         </div>
@@ -268,12 +295,16 @@ export default function BookingSystem() {
             <CardContent className="text-center py-12">
               <div className="relative">
                 <Clock className="w-20 h-20 mx-auto mb-4 text-orange-300 dark:text-orange-600" />
-                <span className="absolute inset-0 flex items-center justify-center text-3xl">😔</span>
+                <span className="absolute inset-0 flex items-center justify-center text-3xl">
+                  😔
+                </span>
               </div>
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
                 No available hours for this date
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">Try selecting a different date or check back later!</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                Try selecting a different date or check back later!
+              </p>
             </CardContent>
           </Card>
         )}
@@ -311,7 +342,9 @@ export default function BookingSystem() {
                     <CardTitle className="flex items-center gap-2 text-lg">
                       <div
                         className={`p-2 rounded-full ${
-                          center.dates.length > 0 ? "bg-green-100 dark:bg-green-800" : "bg-gray-200 dark:bg-gray-600"
+                          center.dates.length > 0
+                            ? "bg-green-100 dark:bg-green-800"
+                            : "bg-gray-200 dark:bg-gray-600"
                         }`}
                       >
                         <MapPin
@@ -332,14 +365,18 @@ export default function BookingSystem() {
                         {center.centerName}
                       </span>
                       <Badge
-                        variant={center.dates.length > 0 ? "default" : "secondary"}
+                        variant={
+                          center.dates.length > 0 ? "default" : "secondary"
+                        }
                         className={`ml-auto ${
                           center.dates.length > 0
                             ? "bg-green-500 hover:bg-green-600 text-white"
                             : "bg-gray-400 dark:bg-gray-500 text-gray-100 dark:text-gray-300"
                         }`}
                       >
-                        {center.dates.length > 0 ? `🎯 ${center.dates.length}` : "😴 None"}
+                        {center.dates.length > 0
+                          ? `🎯 ${center.dates.length}`
+                          : "😴 None"}
                       </Badge>
                     </CardTitle>
                   </CardHeader>
@@ -361,8 +398,12 @@ export default function BookingSystem() {
                             <span className="text-2xl opacity-50">😴</span>
                           </div>
                         </div>
-                        <p className="font-medium text-sm">No available dates</p>
-                        <p className="text-xs mt-1 opacity-75">Check back later!</p>
+                        <p className="font-medium text-sm">
+                          No available dates
+                        </p>
+                        <p className="text-xs mt-1 opacity-75">
+                          Check back later!
+                        </p>
                       </div>
                     )}
                   </CardContent>
@@ -395,5 +436,5 @@ export default function BookingSystem() {
         }
       `}</style>
     </div>
-  )
+  );
 }
