@@ -1,13 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { differenceInMinutes } from "date-fns";
 import { RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
 
 interface PageHeaderProps {
   onRefresh: () => void;
   refreshing: boolean;
-  lastUpdated: Date | null;
+  lastUpdatedPeriod: string | null;
   theme: string | undefined;
   onToggleTheme: () => void;
 }
@@ -15,7 +14,7 @@ interface PageHeaderProps {
 export function PageHeader({
   onRefresh,
   refreshing,
-  lastUpdated,
+  lastUpdatedPeriod,
   theme,
   onToggleTheme,
 }: PageHeaderProps) {
@@ -61,10 +60,10 @@ export function PageHeader({
         ⏰
       </p>
 
-      {lastUpdated && (
+      {lastUpdatedPeriod && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-          Last updated: {differenceInMinutes(new Date(), lastUpdated)} minutes
-          ago • Auto-refreshes every 3 minutes
+          Last updated: {lastUpdatedPeriod} minutes ago • Auto-refreshes every 3
+          minutes
         </p>
       )}
     </div>

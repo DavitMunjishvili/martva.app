@@ -28,6 +28,9 @@ export function useBookingData() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string | null>(
+    null,
+  );
   const { toast } = useToast();
 
   const fetchAvailableDates = useCallback(
@@ -84,7 +87,6 @@ export function useBookingData() {
   const fetchAvailableHours = async (
     centerId: number,
     date: string,
-    city: string,
   ): Promise<AvailableHoursResponse[]> => {
     const response = await fetch("/api/available-hours", {
       method: "POST",
@@ -117,11 +119,29 @@ export function useBookingData() {
     return () => clearInterval(interval);
   }, [fetchAvailableDates]);
 
+  useEffect(() => {
+    if (!lastUpdated) return;
+
+    const interval = setInterval(() => {
+      const now = new Date();
+      const diff = now.getTime() - lastUpdated.getTime();
+      const minutes = Math.floor(diff / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      if (minutes === 0) {
+        setLastUpdatedPeriod(`${seconds}s ago`);
+      } else {
+        setLastUpdatedPeriod(`${minutes}m ${seconds}s ago`);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [lastUpdated]);
+
   return {
     centers,
     loading,
     refreshing,
-    lastUpdated,
+    lastUpdatedPeriod,
     fetchAvailableDates,
     fetchAvailableHours,
   };
