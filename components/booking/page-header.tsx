@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { differenceInMinutes } from "date-fns";
 import { RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
 
 interface PageHeaderProps {
@@ -62,8 +63,8 @@ export function PageHeader({
 
       {lastUpdated && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-          Last updated: {lastUpdated.toLocaleTimeString()} • Auto-refreshes
-          every 5 minutes
+          Last updated: {differenceInMinutes(new Date(), lastUpdated)} minutes
+          ago • Auto-refreshes every 3 minutes
         </p>
       )}
     </div>
