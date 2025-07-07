@@ -132,7 +132,7 @@ export function useBookingData() {
       } else {
         setLastUpdatedPeriod(`${minutes}m ${seconds}s ago`);
       }
-    }, 5000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [lastUpdated]);
