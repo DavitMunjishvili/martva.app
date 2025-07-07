@@ -102,19 +102,17 @@ export function useBookingData() {
     return data || [];
   };
 
-  // Initial load
   useEffect(() => {
     fetchAvailableDates();
   }, [fetchAvailableDates]);
 
-  // Auto-refresh every 5 minutes
   useEffect(() => {
     const interval = setInterval(
       () => {
         fetchAvailableDates(true);
       },
-      5 * 60 * 1000,
-    ); // 5 minutes
+      3 * 60 * 1000,
+    ); // 3 minutes
 
     return () => clearInterval(interval);
   }, [fetchAvailableDates]);
