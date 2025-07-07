@@ -62,8 +62,7 @@ export function PageHeader({
 
       {lastUpdatedPeriod && (
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-          Last updated: {lastUpdatedPeriod} minutes ago • Auto-refreshes every 3
-          minutes
+          Last updated: {lastUpdatedPeriod} • Auto-refreshes every 3 minutes
         </p>
       )}
     </div>
