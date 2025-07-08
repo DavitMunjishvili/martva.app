@@ -41,16 +41,7 @@ function SkeletonGrid() {
   return (
     <>
       {Array.from({ length: 10 }).map((_, index) => (
-        <div
-          key={index}
-          className="max-w-sm w-full"
-          style={{
-            animationDelay: `${index * 100}ms`,
-            animation: "fadeInUp 0.6s ease-out forwards",
-          }}
-        >
-          <CenterCardSkeleton />
-        </div>
+        <CenterCardSkeleton key={index} />
       ))}
     </>
   );

@@ -3,7 +3,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function CenterCardSkeleton() {
   return (
-    <Card className="h-fit border-2 border-gray-200 dark:border-gray-700">
+    <Card
+      className="max-w-xs w-full h-fit transition-all duration-300 hover:shadow-xl border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20"
+      style={{
+        animationDelay: "100ms",
+        animation: "fadeInUp 0.6s ease-out forwards",
+      }}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <Skeleton className="h-9 w-9 rounded-full" />
