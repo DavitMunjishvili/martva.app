@@ -10,6 +10,12 @@ interface TimeSlotsGridProps {
 }
 
 export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
+  const navigateToRegistration = () => {
+    window
+      .open("https://my.sa.gov.ge/drivinglicenses/practicalexam", "_blank")
+      ?.focus();
+  };
+
   return (
     <div className="space-y-4">
       <div className="text-center">
@@ -32,6 +38,7 @@ export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
               animationDelay: `${index * 50}ms`,
               animation: "bounceIn 0.5s ease-out forwards",
             }}
+            onClick={navigateToRegistration}
           >
             <div className="p-1 rounded bg-green-100 dark:bg-green-800 mr-2">
               <Clock className="w-4 h-4 text-green-600 dark:text-green-400" />
