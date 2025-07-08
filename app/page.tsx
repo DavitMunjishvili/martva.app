@@ -13,7 +13,7 @@ export default function BookingSystem() {
     centers,
     loading,
     refreshing,
-    lastUpdatedPeriod,
+    lastUpdated,
     fetchAvailableDates,
     fetchAvailableHours,
   } = useBookingData();
@@ -35,7 +35,7 @@ export default function BookingSystem() {
       <PageHeader
         onRefresh={handleRefresh}
         refreshing={refreshing}
-        lastUpdatedPeriod={lastUpdatedPeriod}
+        lastUpdated={lastUpdated}
         theme={theme}
         onToggleTheme={toggleTheme}
       />

@@ -2,11 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface PageHeaderProps {
   onRefresh: () => void;
   refreshing: boolean;
-  lastUpdatedPeriod: string | null;
+  lastUpdated: Date | null;
   theme: string | undefined;
   onToggleTheme: () => void;
 }
@@ -14,10 +15,34 @@ interface PageHeaderProps {
 export function PageHeader({
   onRefresh,
   refreshing,
-  lastUpdatedPeriod,
+  lastUpdated,
   theme,
   onToggleTheme,
 }: PageHeaderProps) {
+  const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string | null>(
+    null,
+  );
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (lastUpdated) {
+        const now = new Date();
+        const diff = now.getTime() - lastUpdated.getTime();
+
+        const minutes = Math.floor(diff / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        if (minutes === 0) {
+          setLastUpdatedPeriod(`${seconds} seconds ago`);
+        } else {
+          setLastUpdatedPeriod(
+            `${minutes} minute${minutes > 1 ? "s" : ""} ${seconds} seconds ago`,
+          );
+        }
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [lastUpdated]);
+
   return (
     <div className="text-center mb-8">
       <div className="flex justify-between items-center mb-6">

@@ -19,7 +19,7 @@ export function CentersGrid({
   onDateSelect,
 }: CentersGridProps) {
   return (
-    <div className="grid justify-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid justify-items-center justify-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {loading ? (
         <SkeletonGrid />
       ) : (
