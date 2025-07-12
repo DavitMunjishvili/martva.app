@@ -31,10 +31,10 @@ export function PageHeader({
         const minutes = Math.floor(diff / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         if (minutes === 0) {
-          setLastUpdatedPeriod(`${seconds} seconds ago`);
+          setLastUpdatedPeriod(`${seconds} sec${seconds > 1 ? "s" : ""} ago`);
         } else {
           setLastUpdatedPeriod(
-            `${minutes} minute${minutes > 1 ? "s" : ""} ${seconds} seconds ago`,
+            `${minutes} min${minutes > 1 ? "s" : ""} and ${seconds} sec${seconds > 1 ? "s" : ""} ago`,
           );
         }
       }
