@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useBrowserNotifications } from "@/hooks/use-notification";
 
 export interface BookingDate {
   bookingDate: string;
@@ -29,6 +30,7 @@ export function useBookingData() {
   const [refreshing, setRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const { toast } = useToast();
+  const { showNotification } = useBrowserNotifications();
 
   const fetchAvailableDates = useCallback(
     async (isRefresh = false) => {
@@ -63,6 +65,10 @@ export function useBookingData() {
           toast({
             title: "✨ Data refreshed!",
             description: "Latest availability information loaded successfully.",
+          });
+          showNotification({
+            title: "✨ Data refreshed!",
+            body: "Latest availability information loaded successfully.",
           });
         }
       } catch (err) {

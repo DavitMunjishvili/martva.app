@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Sun, Moon, Sparkles } from "lucide-react";
+import { useBrowserNotifications } from "@/hooks/use-notification";
+import { RefreshCw, Sun, Moon, Sparkles, BellIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface PageHeaderProps {
@@ -19,6 +20,9 @@ export function PageHeader({
   theme,
   onToggleTheme,
 }: PageHeaderProps) {
+  const { showNotification, requestPermission, permission } =
+    useBrowserNotifications();
+
   const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string | null>(
     null,
   );
@@ -48,6 +52,18 @@ export function PageHeader({
       <div className="flex justify-between items-center mb-6">
         <div className="flex-1" />
         <div className="flex items-center gap-4">
+          {permission === "default" && (
+            <Button
+              onClick={requestPermission}
+              variant="outline"
+              className="rounded-full border-2 hover:scale-105 transition-transform"
+            >
+              <BellIcon
+                className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
+              />
+              Enable notifications
+            </Button>
+          )}
           <Button
             onClick={onToggleTheme}
             variant="outline"
