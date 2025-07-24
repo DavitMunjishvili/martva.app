@@ -1,14 +1,24 @@
 import type React from "react";
 import type { Metadata } from "next";
-import "./globals.css";
+import { Geist, Geist_Mono } from "next/font/google";
+import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
 
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "Booking System - Find Your Perfect Appointment",
-  description: "Book your driving license appointment easily",
-  generator: "v0.dev",
+  title: "Driver's License Available Slots",
+  description: "Find available slots for II stage of driving license",
 };
 
 export default function RootLayout({
@@ -18,7 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="overflow-x-hidden">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -26,8 +26,8 @@ export function CenterCard({
     <Card
       className={`max-w-xs w-full h-fit transition-all duration-300 hover:shadow-xl border-2 ${
         hasAvailableDates
-          ? "border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20"
-          : "border-gray-300 dark:border-gray-600 bg-gradient-to-br from-gray-100 to-slate-100 dark:from-gray-800/30 dark:to-slate-800/30 opacity-75"
+          ? "border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40"
+          : "border-gray-300 dark:border-gray-600 bg-gradient-to-br from-gray-100 to-slate-100 dark:from-gray-800/40 dark:to-slate-800/40 opacity-75"
       }`}
       style={{
         animationDelay: `${index * 100}ms`,
@@ -79,7 +79,6 @@ export function CenterCard({
             centerName={center.centerName}
             dates={center.dates}
             onDateSelect={onDateSelect}
-            selectedDate={selectedDate}
           />
         ) : (
           <EmptyDateState />

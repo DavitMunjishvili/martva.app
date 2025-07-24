@@ -20,8 +20,7 @@ export function PageHeader({
   theme,
   onToggleTheme,
 }: PageHeaderProps) {
-  const { showNotification, requestPermission, permission } =
-    useBrowserNotifications();
+  const { requestPermission, permission } = useBrowserNotifications();
 
   const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string | null>(
     null,
