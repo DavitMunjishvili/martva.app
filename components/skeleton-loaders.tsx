@@ -30,6 +30,7 @@ export function CenterCardSkeleton() {
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {/* TODO: finish calendar loading state */}
         <Calendar
           weekStartsOn={1}
           mode="single"
