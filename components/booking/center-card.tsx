@@ -67,7 +67,7 @@ export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
           </Badge>
         </CardTitle>
       </CardHeader>
-      <CardContent className='my-auto'>
+      <CardContent className="my-auto">
         {hasAvailableDates ? (
           <CityCalendar
             centerId={center.centerId}
