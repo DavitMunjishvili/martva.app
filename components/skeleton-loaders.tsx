@@ -4,6 +4,7 @@ import { MapPin } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 import { cn } from "@/lib/utils";
 import { getDefaultClassNames } from "react-day-picker";
+import { buttonVariants } from "./ui/button";
 
 export function CenterCardSkeleton() {
   const defaultClassNames = getDefaultClassNames();
@@ -30,7 +31,6 @@ export function CenterCardSkeleton() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {/* TODO: finish calendar loading state */}
         <Calendar
           weekStartsOn={1}
           mode="single"
@@ -48,6 +48,20 @@ export function CenterCardSkeleton() {
               "flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)",
               defaultClassNames.month_caption,
               "animate-pulse text-transparent bg-muted rounded-md",
+            ),
+            today: cn(
+              "text-accent-foreground rounded-md data-[selected=true]:rounded-none",
+              defaultClassNames.today,
+            ),
+            button_previous: cn(
+              buttonVariants({ variant: "ghost" }),
+              "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none text-transparent",
+              defaultClassNames.button_previous,
+            ),
+            button_next: cn(
+              buttonVariants({ variant: "ghost" }),
+              "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none text-transparent",
+              defaultClassNames.button_next,
             ),
           }}
         />
