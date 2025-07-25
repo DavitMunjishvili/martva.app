@@ -20,7 +20,6 @@ export function CentersGrid({
 }: CentersGridProps) {
   return (
     <div className="grid justify-center justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <CenterCardSkeleton />
       {loading ? (
         <SkeletonGrid />
       ) : (
