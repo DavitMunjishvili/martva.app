@@ -60,8 +60,10 @@ export function TimeSlotsModal({
   }, [isOpen, centerId, date, centerName, onFetchHours]);
 
   const handleClose = () => {
-    setAvailableHours([]);
-    setError(null);
+    setTimeout(() => {
+      setAvailableHours([]);
+      setError(null);
+    }, 150);
     onClose();
   };
 
@@ -74,7 +76,7 @@ export function TimeSlotsModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-[80vw] w-max max-h-[80vh] overflow-y-auto">
         <ModalHeader centerName={centerName} date={date} />
         <div className="mt-4">{renderContent()}</div>
       </DialogContent>
