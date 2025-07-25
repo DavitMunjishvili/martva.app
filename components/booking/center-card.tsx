@@ -19,7 +19,7 @@ export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
 
   return (
     <Card
-      className={`max-w-xs w-full h-full transition-all duration-300 hover:shadow-xl border-2 ${
+      className={`max-w-xs flex flex-col w-full h-full transition-all duration-300 hover:shadow-xl border-2 ${
         hasAvailableDates
           ? "border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40"
           : "border-gray-300 dark:border-gray-600 bg-gradient-to-br from-gray-100 to-slate-100 dark:from-gray-800/40 dark:to-slate-800/40 opacity-75"
@@ -67,7 +67,7 @@ export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
           </Badge>
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className='my-auto'>
         {hasAvailableDates ? (
           <CityCalendar
             centerId={center.centerId}
