@@ -22,9 +22,9 @@ export function PageHeader({
 }: PageHeaderProps) {
   const { requestPermission, permission } = useBrowserNotifications();
 
-  const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string | null>(
-    null,
-  );
+  const [lastUpdatedPeriod, setLastUpdatedPeriod] =
+    useState<string>("0 secs ago");
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (lastUpdated) {
@@ -100,11 +100,9 @@ export function PageHeader({
         ⏰
       </p>
 
-      {lastUpdatedPeriod && (
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-          Last updated: {lastUpdatedPeriod} • Auto-refreshes every 3 minutes
-        </p>
-      )}
+      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+        Last updated: {lastUpdatedPeriod} • Auto-refreshes every 3 minutes
+      </p>
     </div>
   );
 }
