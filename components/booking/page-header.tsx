@@ -69,10 +69,10 @@ export function PageHeader({
             size="icon"
             className="rounded-full border-2 hover:scale-105 transition-transform"
           >
-            {theme === "dark" ? (
-              <Sun className="w-4 h-4 text-yellow-500" />
-            ) : (
+            {theme === "light" ? (
               <Moon className="w-4 h-4 text-blue-600" />
+            ) : (
+              <Sun className="w-4 h-4 text-yellow-500" />
             )}
           </Button>
           <Button

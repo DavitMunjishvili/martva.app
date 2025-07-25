@@ -23,11 +23,10 @@ export function CentersGrid({
       {loading ? (
         <SkeletonGrid />
       ) : (
-        centers.map((center, index) => (
+        centers.map((center) => (
           <CenterCard
             key={center.centerName}
             center={center}
-            index={index}
             selectedDate={selectedDate}
             onDateSelect={onDateSelect}
           />

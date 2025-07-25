@@ -29,15 +29,11 @@ export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-        {availableHours.map((hour, index) => (
+        {availableHours.map((hour) => (
           <Button
             key={hour.timeFrameId}
             variant="outline"
             className="justify-center h-12 transition-all duration-200 hover:scale-105 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 dark:hover:from-green-900/20 dark:hover:to-emerald-900/20 hover:border-green-300 dark:hover:border-green-600 hover:shadow-md"
-            style={{
-              animationDelay: `${index * 50}ms`,
-              animation: "bounceIn 0.5s ease-out forwards",
-            }}
             onClick={navigateToRegistration}
           >
             <div className="p-1 rounded bg-green-100 dark:bg-green-800 mr-2">

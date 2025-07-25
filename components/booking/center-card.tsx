@@ -9,12 +9,11 @@ import type { SelectedDate } from "@/hooks/use-date-selection";
 
 interface CenterCardProps {
   center: Center;
-  index: number;
   selectedDate: SelectedDate | null;
   onDateSelect: (centerId: number, date: string, city: string) => void;
 }
 
-export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
+export function CenterCard({ center, onDateSelect }: CenterCardProps) {
   const hasAvailableDates = center.dates.length > 0;
 
   return (
@@ -24,10 +23,6 @@ export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
           ? "border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40"
           : "border-gray-300 dark:border-gray-600 bg-gradient-to-br from-gray-100 to-slate-100 dark:from-gray-800/40 dark:to-slate-800/40 opacity-75"
       }`}
-      style={{
-        animationDelay: `${index * 100}ms`,
-        animation: "fadeInUp 0.6s ease-out forwards",
-      }}
     >
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">

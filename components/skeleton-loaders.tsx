@@ -10,13 +10,7 @@ export function CenterCardSkeleton() {
   const defaultClassNames = getDefaultClassNames();
 
   return (
-    <Card
-      className="max-w-xs w-full h-fit transition-all duration-300 hover:shadow-xl border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40"
-      style={{
-        animationDelay: "100ms",
-        animation: "fadeInUp 0.6s ease-out forwards",
-      }}
-    >
+    <Card className="max-w-xs w-full h-fit transition-all duration-300 hover:shadow-xl border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40">
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
           <div className="p-2 rounded-full bg-green-100 dark:bg-green-800">

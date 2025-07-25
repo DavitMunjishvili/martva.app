@@ -2,11 +2,11 @@
 
 import { useBookingData } from "@/hooks/use-booking-data";
 import { useDateSelection } from "@/hooks/use-date-selection";
-import { useThemeToggle } from "@/hooks/use-theme-toggle";
 import { BookingLayout } from "@/components/booking/booking-layout";
 import { PageHeader } from "@/components/booking/page-header";
 import { CentersGrid } from "@/components/booking/centers-grid";
 import { TimeSlotsModal } from "@/components/time-slots-modal";
+import { useTheme } from "next-themes";
 
 export default function BookingSystem() {
   const {
@@ -24,10 +24,15 @@ export default function BookingSystem() {
     handleDateClick,
     handleModalClose,
   } = useDateSelection();
-  const { theme, toggleTheme } = useThemeToggle();
+
+  const { theme, setTheme } = useTheme();
 
   const handleRefresh = () => {
     fetchAvailableDates(true);
+  };
+
+  const toggleTheme = () => {
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
   };
 
   return (
