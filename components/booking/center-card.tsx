@@ -59,7 +59,7 @@ export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
             variant={hasAvailableDates ? "default" : "secondary"}
             className={`ml-auto ${
               hasAvailableDates
-                ? "bg-green-500 hover:bg-green-600 text-white"
+                ? "bg-green-500 hover:bg-green-600 text-green-900"
                 : "bg-gray-400 dark:bg-gray-500 text-gray-100 dark:text-gray-300"
             }`}
           >
@@ -67,7 +67,7 @@ export function CenterCard({ center, index, onDateSelect }: CenterCardProps) {
           </Badge>
         </CardTitle>
       </CardHeader>
-      <CardContent className='h-full'>
+      <CardContent>
         {hasAvailableDates ? (
           <CityCalendar
             centerId={center.centerId}
