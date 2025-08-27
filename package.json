@@ -1,5 +1,6 @@
 {
-  "name": "my-v0-project",
+  "name": "martva-app",
+  "description": "Martva.app is a user-friendly web application designed to simplify the process of booking the city driving portion of the Georgian driver's license exam. It provides an intuitive interface to browse available dates and time slots, offering a seamless alternative to the official government website.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
