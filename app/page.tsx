@@ -2,7 +2,6 @@
 
 import { useBookingData } from "@/hooks/use-booking-data";
 import { useDateSelection } from "@/hooks/use-date-selection";
-import { BookingLayout } from "@/components/booking/booking-layout";
 import { PageHeader } from "@/components/booking/page-header";
 import { CentersGrid } from "@/components/booking/centers-grid";
 import { TimeSlotsModal } from "@/components/time-slots-modal";
@@ -36,7 +35,7 @@ export default function BookingSystem() {
   };
 
   return (
-    <BookingLayout>
+    <>
       <PageHeader
         onRefresh={handleRefresh}
         refreshing={refreshing}
@@ -60,6 +59,6 @@ export default function BookingSystem() {
         date={modalData?.date || ""}
         onFetchHours={fetchAvailableHours}
       />
-    </BookingLayout>
+    </>
   );
 }
