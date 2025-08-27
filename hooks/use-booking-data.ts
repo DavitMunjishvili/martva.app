@@ -49,12 +49,9 @@ export function useBookingData() {
 
         const data: AvailableDatesResponse = await response.json();
 
-        // Convert object to array and sort by availability
         const centersArray = Object.values(data).sort((a, b) => {
-          // Centers with dates first
           if (a.dates.length > 0 && b.dates.length === 0) return -1;
           if (a.dates.length === 0 && b.dates.length > 0) return 1;
-          // Then sort by number of available dates (descending)
           return b.dates.length - a.dates.length;
         });
 
@@ -116,8 +113,8 @@ export function useBookingData() {
       () => {
         fetchAvailableDates(true);
       },
-      3 * 60 * 1000,
-    ); // 3 minutes
+      3 * 60 * 1000, // 3 minutes
+    );
 
     return () => clearInterval(interval);
   }, [fetchAvailableDates]);
