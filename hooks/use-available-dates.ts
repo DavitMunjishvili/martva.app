@@ -19,12 +19,7 @@ export interface AvailableDatesResponse {
   [key: string]: Center;
 }
 
-export interface AvailableHoursResponse {
-  timeFrameId: number;
-  timeFrameName: string;
-}
-
-export function useBookingData() {
+export function useAvailableDates() {
   const [centers, setCenters] = useState<Center[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -84,26 +79,6 @@ export function useBookingData() {
     [toast],
   );
 
-  const fetchAvailableHours = async (
-    centerId: number,
-    date: string,
-  ): Promise<AvailableHoursResponse[]> => {
-    const response = await fetch("/api/available-hours", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ date, city: centerId }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch available hours");
-    }
-
-    const data: AvailableHoursResponse[] = await response.json();
-    return data || [];
-  };
-
   useEffect(() => {
     fetchAvailableDates();
   }, [fetchAvailableDates]);
@@ -125,6 +100,5 @@ export function useBookingData() {
     refreshing,
     lastUpdated,
     fetchAvailableDates,
-    fetchAvailableHours,
   };
 }

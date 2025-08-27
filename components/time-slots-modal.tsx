@@ -7,7 +7,8 @@ import { LoadingState } from "./time-slots-modal/loading-state";
 import { ErrorState } from "./time-slots-modal/error-state";
 import { EmptyState } from "./time-slots-modal/empty-state";
 import { TimeSlotsGrid } from "./time-slots-modal/time-slots-grid";
-import type { AvailableHoursResponse } from "@/hooks/use-booking-data";
+import type { AvailableHoursResponse } from "@/hooks/use-available-hours";
+import { useAvailableHours } from "@/hooks/use-available-hours";
 
 interface TimeSlotsModalProps {
   isOpen: boolean;
@@ -15,11 +16,6 @@ interface TimeSlotsModalProps {
   centerId: number | null;
   centerName: string;
   date: string;
-  onFetchHours: (
-    centerId: number,
-    date: string,
-    city: string,
-  ) => Promise<AvailableHoursResponse[]>;
 }
 
 export function TimeSlotsModal({
@@ -28,8 +24,8 @@ export function TimeSlotsModal({
   centerId,
   centerName,
   date,
-  onFetchHours,
 }: TimeSlotsModalProps) {
+  const { fetchAvailableHours } = useAvailableHours();
   const [availableHours, setAvailableHours] = useState<
     AvailableHoursResponse[]
   >([]);
@@ -44,7 +40,7 @@ export function TimeSlotsModal({
         setAvailableHours([]);
 
         try {
-          const hours = await onFetchHours(centerId, date, centerName);
+          const hours = await fetchAvailableHours(centerId, date);
           setAvailableHours(hours || []);
         } catch (err) {
           setError(
@@ -57,7 +53,7 @@ export function TimeSlotsModal({
 
       fetchHours();
     }
-  }, [isOpen, centerId, date, centerName, onFetchHours]);
+  }, [isOpen, centerId, date, centerName, fetchAvailableHours]);
 
   const handleClose = () => {
     setTimeout(() => {

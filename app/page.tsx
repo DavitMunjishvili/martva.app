@@ -1,6 +1,6 @@
 "use client";
 
-import { useBookingData } from "@/hooks/use-booking-data";
+import { useAvailableDates } from "@/hooks/use-available-dates";
 import { useDateSelection } from "@/hooks/use-date-selection";
 import { PageHeader } from "@/components/booking/page-header";
 import { CentersGrid } from "@/components/booking/centers-grid";
@@ -8,14 +8,9 @@ import { TimeSlotsModal } from "@/components/time-slots-modal";
 import { useTheme } from "next-themes";
 
 export default function BookingSystem() {
-  const {
-    centers,
-    loading,
-    refreshing,
-    lastUpdated,
-    fetchAvailableDates,
-    fetchAvailableHours,
-  } = useBookingData();
+  const { centers, loading, refreshing, lastUpdated, fetchAvailableDates } =
+    useAvailableDates();
+
   const {
     selectedDate,
     modalOpen,
@@ -57,7 +52,6 @@ export default function BookingSystem() {
         centerId={modalData?.centerId || null}
         centerName={modalData?.centerName || ""}
         date={modalData?.date || ""}
-        onFetchHours={fetchAvailableHours}
       />
     </>
   );
