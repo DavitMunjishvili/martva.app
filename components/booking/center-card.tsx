@@ -5,13 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, ExternalLinkIcon, MapPin } from "lucide-react";
 import { CityCalendar } from "@/components/city-calendar";
 import type { Center } from "@/hooks/use-available-dates";
-import type { SelectedDate } from "@/hooks/use-date-selection";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface CenterCardProps {
   center: Center;
-  selectedDate: SelectedDate | null;
   onDateSelect: (centerId: number, date: string, city: string) => void;
 }
 

@@ -2,20 +2,17 @@
 
 import { CenterCardSkeleton } from "@/components/skeleton-loaders";
 import { CenterCard } from "./center-card";
-import type { Center } from "@/hooks/use-booking-data";
-import type { SelectedDate } from "@/hooks/use-date-selection";
+import { Center } from "@/hooks/use-available-dates";
 
 interface CentersGridProps {
   centers: Center[];
   loading: boolean;
-  selectedDate: SelectedDate | null;
   onDateSelect: (centerId: number, date: string, city: string) => void;
 }
 
 export function CentersGrid({
   centers,
   loading,
-  selectedDate,
   onDateSelect,
 }: CentersGridProps) {
   return (
@@ -27,7 +24,6 @@ export function CentersGrid({
           <CenterCard
             key={center.centerName}
             center={center}
-            selectedDate={selectedDate}
             onDateSelect={onDateSelect}
           />
         ))

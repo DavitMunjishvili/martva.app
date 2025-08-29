@@ -14,12 +14,10 @@ export interface ModalData {
 }
 
 export function useDateSelection() {
-  const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<ModalData | null>(null);
 
   const handleDateClick = (centerId: number, date: string, city: string) => {
-    setSelectedDate({ date, city });
     setModalData({ centerId, centerName: city, date });
     setModalOpen(true);
   };
@@ -27,11 +25,9 @@ export function useDateSelection() {
   const handleModalClose = () => {
     setModalOpen(false);
     setModalData(null);
-    setSelectedDate(null);
   };
 
   return {
-    selectedDate,
     modalOpen,
     modalData,
     handleDateClick,

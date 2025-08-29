@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
-import type { AvailableHoursResponse } from "@/hooks/use-booking-data";
+import { AvailableHoursResponse } from "@/hooks/use-available-hours";
 
 interface TimeSlotsGridProps {
   availableHours: AvailableHoursResponse[];

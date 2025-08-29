@@ -11,13 +11,8 @@ export default function BookingSystem() {
   const { centers, loading, refreshing, lastUpdated, fetchAvailableDates } =
     useAvailableDates();
 
-  const {
-    selectedDate,
-    modalOpen,
-    modalData,
-    handleDateClick,
-    handleModalClose,
-  } = useDateSelection();
+  const { modalOpen, modalData, handleDateClick, handleModalClose } =
+    useDateSelection();
 
   const { theme, setTheme } = useTheme();
 
@@ -42,7 +37,6 @@ export default function BookingSystem() {
       <CentersGrid
         centers={centers}
         loading={loading}
-        selectedDate={selectedDate}
         onDateSelect={handleDateClick}
       />
 
