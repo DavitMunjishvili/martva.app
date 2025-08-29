@@ -2,10 +2,12 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar, ExternalLinkIcon, MapPin } from "lucide-react";
 import { CityCalendar } from "@/components/city-calendar";
-import type { Center } from "@/hooks/use-booking-data";
+import type { Center } from "@/hooks/use-available-dates";
 import type { SelectedDate } from "@/hooks/use-date-selection";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface CenterCardProps {
   center: Center;
@@ -50,6 +52,17 @@ export function CenterCard({ center, onDateSelect }: CenterCardProps) {
           >
             {center.centerName}
           </span>
+          <Link
+            href={`/city/${center.centerId}`}
+            aria-label={`View more details about ${center.centerName}`}
+            className={cn(
+              hasAvailableDates
+                ? "text-green-600 dark:text-green-400"
+                : "text-gray-400 dark:text-gray-500",
+            )}
+          >
+            <ExternalLinkIcon />
+          </Link>
           <Badge
             variant={hasAvailableDates ? "default" : "secondary"}
             className={`ml-auto ${
