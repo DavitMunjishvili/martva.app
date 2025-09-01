@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useBrowserNotifications } from "@/hooks/use-notification";
+import { REFETCH_INTERVAL } from "@/lib/config";
 
 export interface BookingDate {
   bookingDate: string;
@@ -84,12 +85,9 @@ export function useAvailableDates() {
   }, [fetchAvailableDates]);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => {
-        fetchAvailableDates(true);
-      },
-      3 * 60 * 1000, // 3 minutes
-    );
+    const interval = setInterval(() => {
+      fetchAvailableDates(true);
+    }, REFETCH_INTERVAL);
 
     return () => clearInterval(interval);
   }, [fetchAvailableDates]);
