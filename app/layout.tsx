@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
+import { Header } from "@/components/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,10 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class">
           <div className="overflow-x-hidden min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 py-8">
-            <div className="max-w-7xl mx-auto px-4">{children}</div>
+            <div className="max-w-7xl mx-auto px-4">
+              <Header />
+              {children}
+            </div>
           </div>
           <Toaster />
         </ThemeProvider>
