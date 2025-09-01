@@ -41,25 +41,18 @@ export function CenterCard({ center, onDateSelect }: CenterCardProps) {
               }`}
             />
           </div>
-          <span
-            className={`font-semibold ${
-              hasAvailableDates
-                ? "text-gray-800 dark:text-gray-200"
-                : "text-gray-500 dark:text-gray-400"
-            }`}
-          >
-            {center.centerName}
-          </span>
           <Link
-            href={`/city/${center.centerId}`}
+            href={`/city/${center.centerId}/${center.centerName.toLowerCase()}`}
             aria-label={`View more details about ${center.centerName}`}
             className={cn(
+              "flex items-start gap-1 hover:underline",
               hasAvailableDates
                 ? "text-green-600 dark:text-green-400"
-                : "text-gray-400 dark:text-gray-500",
+                : "text-gray-700 dark:text-gray-300",
             )}
           >
-            <ExternalLinkIcon />
+            <span className="font-semibold">{center.centerName}</span>
+            <ExternalLinkIcon className="size-4" />
           </Link>
           <Badge
             variant={hasAvailableDates ? "default" : "secondary"}
