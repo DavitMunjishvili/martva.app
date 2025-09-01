@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useBrowserNotifications } from "@/hooks/use-notification";
-import { RefreshCw, Sun, Moon, Sparkles, BellIcon } from "lucide-react";
+import { REFETCH_INTERVAL } from "@/lib/config";
+import { RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface PageHeaderProps {
@@ -43,7 +43,8 @@ export function PageHeader({
   return (
     <div className="flex justify-end items-center gap-2 mb-4">
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        Last updated: {lastUpdatedPeriod} • Auto-refreshes every 3 minutes
+        Last updated: {lastUpdatedPeriod} • Auto-refreshes every{" "}
+        {REFETCH_INTERVAL / 60 / 1000} minutes
       </p>
 
       <Button
