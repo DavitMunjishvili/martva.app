@@ -1,0 +1,23 @@
+{
+  "driver_license_available_slots": "",
+  "find_available_slots": "",
+  "last_updated": "",
+  "refresh": "",
+  "enable_notifications": "",
+  "no_available_dates": "",
+  "check_back_later": "",
+  "all_slots_taken": "",
+  "all_slots_taken_description": "",
+  "try_different_date": "",
+  "unable_to_load_time_slots": "",
+  "try_again": "",
+  "available_time_slots": "",
+  "data_refreshed": "",
+  "data_refreshed_description": "",
+  "oops_something_went_wrong": "",
+  "loading": "",
+  "city_not_found": "",
+  "available_dates": "",
+  "back": "",
+  "none": ""
+}

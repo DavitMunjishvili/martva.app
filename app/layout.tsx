@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/header";
+import { NextIntlClientProvider } from "next-intl";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,16 +33,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <ThemeProvider attribute="class">
-          <div className="overflow-x-hidden min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 py-8">
-            <div className="max-w-7xl mx-auto px-4">
-              <Header />
-              {children}
+        <NextIntlClientProvider>
+          <ThemeProvider attribute="class">
+            <div className="overflow-x-hidden min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 py-8">
+              <div className="max-w-7xl mx-auto px-4">
+                <Header />
+                {children}
+              </div>
             </div>
-          </div>
-          <Toaster />
-        </ThemeProvider>
-        <Analytics />
+            <Toaster />
+          </ThemeProvider>
+          <Analytics />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

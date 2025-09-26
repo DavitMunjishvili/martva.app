@@ -1,0 +1,23 @@
+{
+  "driver_license_available_slots": "Driver's License Available Slots",
+  "find_available_slots": "Find available slots for II stage of driving license",
+  "last_updated": "Last updated: {{period}} • Auto-refreshes every 3 minutes",
+  "refresh": "Refresh",
+  "enable_notifications": "Enable notifications",
+  "no_available_dates": "No available dates",
+  "check_back_later": "Check back later!",
+  "all_slots_taken": "All slots taken!",
+  "all_slots_taken_description": "Looks like all available hours were booked before you could get them. These slots go fast! 🏃‍♂️💨",
+  "try_different_date": "Try selecting a different date or check back later.",
+  "unable_to_load_time_slots": "Unable to load time slots",
+  "try_again": "Try Again",
+  "available_time_slots": "Available Time Slots",
+  "data_refreshed": "Data refreshed!",
+  "data_refreshed_description": "Latest availability information loaded successfully.",
+  "oops_something_went_wrong": "Oops! Something went wrong",
+  "loading": "Loading...",
+  "city_not_found": "City not found",
+  "available_dates": "Available Dates",
+  "back": "Back",
+  "none": "None"
+}
