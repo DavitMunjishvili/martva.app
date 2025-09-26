@@ -1,53 +1,30 @@
-# Project Overview
+# GEMINI.md
 
-Martva.app is a user-friendly web application designed to simplify the process of booking the city driving portion of the Georgian driver's license exam. It provides an intuitive interface to browse available dates and time slots, offering a seamless alternative to the official government website.
+## Project Overview
 
-**Key Features:**
+This is a Next.js application written in TypeScript that allows users to book the city driving portion of the Georgian driver's license exam. It provides a user-friendly interface to browse available dates and time slots, offering a seamless alternative to the official government website. The application is styled with Tailwind CSS and uses `shadcn/ui` for UI components. It fetches data from a backend API to provide the most up-to-date information.
 
-- Browse Test Centers
-- Interactive Calendar
-- Time Slot Booking
-- Responsive Design
-- Dark/Light Mode
+## Building and Running
 
-**Main Technologies:**
+-   **Installation:** `bun install`
+-   **Running (development):** `bun dev`
+-   **Building (production):** `bun build`
+-   **Starting (production):** `bun start`
+-   **Linting:** `bun lint`
+-   **Formatting:** `bun format`
 
-- **Framework**: Next.js
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
-- **Date & Time**: date-fns & React Day Picker
+## Development Conventions
 
-# Building and Running
-
-## Prerequisites
-
-- Node.js
-- Bun
-
-## Installation
-
-1.  Clone the repository.
-2.  Navigate to the project directory:
-    ```bash
-    cd martva.app
-    ```
-3.  Install the dependencies:
-    ```bash
-    bun install
-    ```
-
-## Available Scripts
-
-- `bun dev`: Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-- `bun build`: Builds the app for production.
-- `bun start`: Starts a production server.
-- `bun lint`: Runs the linter to check for code quality.
-- `bun format`: Formats the code using Prettier.
-
-# Development Conventions
-
-- **Language**: TypeScript is used for all application logic.
-- **Styling**: Tailwind CSS is used for styling, with `shadcn/ui` components.
-- **Code Formatting**: Prettier is used for code formatting. Run `bun format` to format the code.
-- **Linting**: ESLint is used for code quality checks. Run `bun lint` to check for issues.
+-   The project uses TypeScript for static typing.
+-   Styling is done with Tailwind CSS and `clsx` for conditional classes.
+-   UI components are built with `shadcn/ui`.
+-   Custom hooks are used for data fetching and state management.
+-   API routes in Next.js are used as a proxy to a backend API.
+-   The project uses `date-fns` for date manipulation.
+-   The project uses `prettier` for code formatting and `eslint` for linting.
+-   The project uses `react-day-picker` for the calendar component.
+-   The project uses `next-themes` for theme management.
+-   The project uses `@vercel/analytics` for analytics.
+-   The project uses `lucide-react` for icons.
+-   The project uses `use-toast` for notifications.
+-   The project uses `use-notification` for browser notifications.
