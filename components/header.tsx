@@ -11,8 +11,10 @@ import {
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export function Header() {
+  const t = useTranslations("");
   const { requestPermission, permission } = useBrowserNotifications();
 
   const { theme, setTheme } = useTheme();
@@ -46,7 +48,7 @@ export function Header() {
               className="rounded-full border-2 hover:scale-105 transition-transform"
             >
               <BellIcon />
-              Enable notifications
+              {t("enable_notifications")}
             </Button>
           )}
           {mounted && (
@@ -65,17 +67,6 @@ export function Header() {
               )}
             </Button>
           )}
-          {/* <Button */}
-          {/*   onClick={onRefresh} */}
-          {/*   disabled={refreshing} */}
-          {/*   variant="outline" */}
-          {/*   className="rounded-full border-2 hover:scale-105 transition-transform" */}
-          {/* > */}
-          {/*   <RefreshCw */}
-          {/*     className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`} */}
-          {/*   /> */}
-          {/*   Refresh */}
-          {/* </Button> */}
         </div>
       </div>
     </div>
