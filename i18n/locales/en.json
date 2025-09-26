@@ -19,5 +19,6 @@
   "city_not_found": "City not found",
   "available_dates": "Available Dates",
   "back": "Back",
-  "none": "None"
+  "none": "None",
+  "failed_to_fetch_hours": "Failed to fetch hours"
 }
