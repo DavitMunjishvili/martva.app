@@ -9,6 +9,7 @@ import { EmptyState } from "./time-slots-modal/empty-state";
 import { TimeSlotsGrid } from "./time-slots-modal/time-slots-grid";
 import type { AvailableHoursResponse } from "@/hooks/use-available-hours";
 import { useAvailableHours } from "@/hooks/use-available-hours";
+import { useTranslations } from "next-intl";
 
 interface TimeSlotsModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export function TimeSlotsModal({
   centerName,
   date,
 }: TimeSlotsModalProps) {
+  const t = useTranslations();
   const { fetchAvailableHours } = useAvailableHours();
   const [availableHours, setAvailableHours] = useState<
     AvailableHoursResponse[]
@@ -44,7 +46,7 @@ export function TimeSlotsModal({
           setAvailableHours(hours || []);
         } catch (err) {
           setError(
-            err instanceof Error ? err.message : "Failed to fetch hours",
+            err instanceof Error ? err.message : t("failed_to_fetch_hours"),
           );
         } finally {
           setLoading(false);
@@ -53,7 +55,7 @@ export function TimeSlotsModal({
 
       fetchHours();
     }
-  }, [isOpen, centerId, date, centerName, fetchAvailableHours]);
+  }, [isOpen, centerId, date, centerName, fetchAvailableHours, t]);
 
   const handleClose = () => {
     setTimeout(() => {
