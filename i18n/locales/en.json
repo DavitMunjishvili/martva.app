@@ -20,5 +20,6 @@
   "available_dates": "Available Dates",
   "back": "Back",
   "none": "None",
-  "failed_to_fetch_hours": "Failed to fetch hours"
+  "failed_to_fetch_hours": "Failed to fetch hours",
+  "loading": "Loading..."
 }

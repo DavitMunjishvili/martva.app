@@ -5,8 +5,10 @@ import { Calendar } from "./ui/calendar";
 import { cn } from "@/lib/utils";
 import { getDefaultClassNames } from "react-day-picker";
 import { buttonVariants } from "./ui/button";
+import { useTranslations } from "next-intl";
 
 export function CenterCardSkeleton() {
+  const t = useTranslations();
   const defaultClassNames = getDefaultClassNames();
 
   return (
@@ -18,7 +20,7 @@ export function CenterCardSkeleton() {
           </div>
           <span className="font-semibold text-gray-800 dark:text-gray-200">
             <Skeleton className="w-full h-full">
-              <span className="opacity-0">Loading......</span>
+              <span className="opacity-0 select-none">{t("loading")}</span>
             </Skeleton>
           </span>
           <Skeleton className="ml-auto rounded-full border border-transparent px-2.5 py-0.5 h-5.5 w-11" />
