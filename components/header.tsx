@@ -10,8 +10,8 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
 export function Header() {
   const t = useTranslations("");
@@ -19,6 +19,14 @@ export function Header() {
 
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const toggleLang = () => {
+    router.replace(pathname, { locale: locale === "ka" ? "en" : "ka" });
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -51,6 +59,14 @@ export function Header() {
               {t("enable_notifications")}
             </Button>
           )}
+          <Button
+            onClick={toggleLang}
+            variant="outline"
+            size="icon"
+            className="rounded-full border-2 hover:scale-105 transition-transform"
+          >
+            {locale === "ka" ? "🇬🇪" : "🇺🇸"}
+          </Button>
           {mounted && (
             <Button
               onClick={toggleTheme}
