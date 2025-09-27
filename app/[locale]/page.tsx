@@ -7,8 +7,11 @@ import { TimeSlotsModal } from "@/components/time-slots-modal";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function BookingSystem() {
+  const tLastUpdated = useTranslations("last_updated");
+  const t = useTranslations();
   const { centers, loading, refreshing, lastUpdated, fetchAvailableDates } =
     useAvailableDates();
 
@@ -19,8 +22,9 @@ export default function BookingSystem() {
     fetchAvailableDates(true);
   };
 
-  const [lastUpdatedPeriod, setLastUpdatedPeriod] =
-    useState<string>("0 secs ago");
+  const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string>(
+    tLastUpdated("seconds_ago", { count: 0 }),
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,24 +35,24 @@ export default function BookingSystem() {
         const minutes = Math.floor(diff / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         if (minutes === 0) {
-          setLastUpdatedPeriod(`${seconds} sec${seconds > 1 ? "s" : ""} ago`);
+          setLastUpdatedPeriod(tLastUpdated("seconds_ago", { count: seconds }));
         } else {
           setLastUpdatedPeriod(
-            `${minutes} min${minutes > 1 ? "s" : ""} and ${seconds} sec${seconds > 1 ? "s" : ""} ago`,
+            tLastUpdated("minutes_seconds_ago", { minutes, seconds }),
           );
         }
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [lastUpdated]);
+  }, [lastUpdated, tLastUpdated]);
 
   return (
     <>
       <div className="flex justify-end items-center mb-6">
         <div className="flex items-center gap-4">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Last updated: {lastUpdatedPeriod} • Auto-refreshes every 3 minutes
+            {tLastUpdated("label", { time: lastUpdatedPeriod })}
           </p>
           <Button
             onClick={handleRefresh}
@@ -59,7 +63,7 @@ export default function BookingSystem() {
             <RefreshCw
               className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
             />
-            Refresh
+            {t("refresh")}
           </Button>
         </div>
       </div>

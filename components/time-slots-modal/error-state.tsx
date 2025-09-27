@@ -2,12 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface ErrorStateProps {
   error: string;
 }
 
 export function ErrorState({ error }: ErrorStateProps) {
+  const t = useTranslations();
+
   return (
     <div className="text-center py-12">
       <div className="relative mb-6">
@@ -17,7 +20,7 @@ export function ErrorState({ error }: ErrorStateProps) {
         </span>
       </div>
       <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
-        Unable to load time slots
+        {t("unable_to_load_time_slots")}
       </h3>
       <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
       <Button
@@ -25,7 +28,7 @@ export function ErrorState({ error }: ErrorStateProps) {
         variant="outline"
         className="mt-2"
       >
-        Try Again
+        {t("try_again")}
       </Button>
     </div>
   );

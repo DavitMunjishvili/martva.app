@@ -7,6 +7,7 @@ import { CityCalendar } from "@/components/city-calendar";
 import type { Center } from "@/hooks/use-available-dates";
 import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 interface CenterCardProps {
   center: Center;
@@ -14,6 +15,7 @@ interface CenterCardProps {
 }
 
 export function CenterCard({ center, onDateSelect }: CenterCardProps) {
+  const t = useTranslations();
   const hasAvailableDates = center.dates.length > 0;
 
   return (
@@ -51,7 +53,9 @@ export function CenterCard({ center, onDateSelect }: CenterCardProps) {
                 : "text-gray-700 dark:text-gray-300",
             )}
           >
-            <span className="font-semibold">{center.centerName}</span>
+            <span className="font-semibold">
+              {t("cities." + center.centerName)}
+            </span>
             <ExternalLinkIcon className="size-4" />
           </Link>
           <Badge
@@ -62,7 +66,9 @@ export function CenterCard({ center, onDateSelect }: CenterCardProps) {
                 : "bg-gray-400 dark:bg-gray-500 text-gray-100 dark:text-gray-300"
             }`}
           >
-            {hasAvailableDates ? `🎯 ${center.dates.length}` : "😴 None"}
+            {hasAvailableDates
+              ? `🎯 ${center.dates.length}`
+              : `😴 ${t("none")}`}
           </Badge>
         </CardTitle>
       </CardHeader>
@@ -83,6 +89,8 @@ export function CenterCard({ center, onDateSelect }: CenterCardProps) {
 }
 
 function EmptyDateState() {
+  const t = useTranslations();
+
   return (
     <div className="text-center py-8 text-gray-400 dark:text-gray-500">
       <div className="relative">
@@ -91,8 +99,8 @@ function EmptyDateState() {
           <span className="text-2xl opacity-50">😴</span>
         </div>
       </div>
-      <p className="font-medium text-sm">No available dates</p>
-      <p className="text-xs mt-1 opacity-75">Check back later!</p>
+      <p className="font-medium text-sm">{t("no_available_dates")}</p>
+      <p className="text-xs mt-1 opacity-75">{t("check_back_later")}</p>
     </div>
   );
 }

@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { AvailableHoursResponse } from "@/hooks/use-available-hours";
+import { useTranslations } from "next-intl";
 
 interface TimeSlotsGridProps {
   availableHours: AvailableHoursResponse[];
 }
 
 export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
+  const t = useTranslations();
   const navigateToRegistration = () => {
     window
       .open("https://my.sa.gov.ge/drivinglicenses/practicalexam", "_blank")
@@ -23,8 +25,7 @@ export function TimeSlotsGrid({ availableHours }: TimeSlotsGridProps) {
           variant="secondary"
           className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200"
         >
-          🎉 {availableHours.length} slot
-          {availableHours.length !== 1 ? "s" : ""} available
+          {t("available_slots", { count: availableHours.length })}
         </Badge>
       </div>
 

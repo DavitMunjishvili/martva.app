@@ -1,15 +1,13 @@
-import {
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useBrowserNotifications } from "@/hooks/use-notification";
 import { Center } from "./use-available-dates";
+import { useTranslations } from "next-intl";
 
 export type CityInfoResponse = Center | null;
 
 export function useCityInfo(centerId: number) {
+  const t = useTranslations();
   const [cityInfo, setCityInfo] = useState<CityInfoResponse>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -41,12 +39,12 @@ export function useCityInfo(centerId: number) {
 
         if (isRefresh) {
           toast({
-            title: "✨ Data refreshed!",
-            description: "Latest availability information loaded successfully.",
+            title: t("data_refreshed"),
+            description: t("data_refreshed_description"),
           });
           showNotification({
-            title: "✨ Data refreshed!",
-            body: "Latest availability information loaded successfully.",
+            title: t("data_refreshed"),
+            body: t("data_refreshed_description"),
           });
         }
       } catch (error) {
@@ -56,7 +54,7 @@ export function useCityInfo(centerId: number) {
         setRefreshing(false);
       }
     },
-    [centerId, toast],
+    [centerId, showNotification, t, toast],
   );
 
   useEffect(() => {

@@ -1,7 +1,21 @@
 {
-  "driver_license_available_slots": "Driver's License Available Slots",
-  "find_available_slots": "Find available slots for II stage of driving license",
-  "last_updated": "Last updated: {{period}} • Auto-refreshes every 3 minutes",
+  "cities": {
+    "Ozurgeti": "Ozurgeti",
+    "Batumi": "Batumi",
+    "Poti": "Poti",
+    "Gori": "Gori",
+    "Kutaisi": "Kutaisi",
+    "Rustavi": "Rustavi",
+    "Akhaltsikhe": "Akhaltsikhe",
+    "Sachkhere": "Sachkhere",
+    "Telavi": "Telavi",
+    "Zugdidi": "Zugdidi"
+  },
+  "last_updated": {
+    "label": "Last updated: {time} • Auto-refreshes every 3 minutes",
+    "seconds_ago": "{count, plural, one {{count} sec ago} other {{count} secs ago}}",
+    "minutes_seconds_ago": "{minutes, plural, one {{minutes} min} other {{minutes} mins}} and {seconds, plural, one {{seconds} sec ago} other {{seconds} secs ago}}"
+  },
   "refresh": "Refresh",
   "enable_notifications": "Enable notifications",
   "no_available_dates": "No available dates",
@@ -21,5 +35,6 @@
   "back": "Back",
   "none": "None",
   "failed_to_fetch_hours": "Failed to fetch hours",
-  "loading": "Loading..."
+  "close": "Close",
+  "available_slots": "{count, plural, one {🎉 {count} slot available} other {🎉 {count} slots available}}"
 }

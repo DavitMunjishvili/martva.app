@@ -11,10 +11,11 @@ import { ArrowLeft, RefreshCwIcon } from "lucide-react";
 import { useDateSelection } from "@/hooks/use-date-selection";
 import { TimeSlotsModal } from "@/components/time-slots-modal";
 import { Link } from "@/i18n/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { enUS, ka } from "react-day-picker/locale";
 
 export default function CityCalendarPage() {
+  const t = useTranslations();
   const locale = useLocale();
   const params = useParams();
   const cityId = Number.parseInt(params.cityId as string);
@@ -24,11 +25,11 @@ export default function CityCalendarPage() {
     useDateSelection();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>{t("loading")}</div>;
   }
 
   if (!cityInfo) {
-    return <div>City not found</div>;
+    return <div>{t("city_not_found")}</div>;
   }
 
   const availableDates = cityInfo.dates.map((dateObj) => {
@@ -69,14 +70,16 @@ export default function CityCalendarPage() {
             className="flex items-center gap-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             <ArrowLeft className="w-5 h-5" />
-            Back
+            {t("back")}
           </Link>
-          <h1 className="text-2xl font-bold">{cityInfo.centerName}</h1>
+          <h1 className="text-2xl font-bold">
+            {t(`cities.${cityInfo.centerName}`)}
+          </h1>
         </div>
         <Card className="max-w-xs flex flex-col w-full h-full transition-all duration-300 hover:shadow-xl border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/40 dark:to-emerald-900/40">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
-              Available Dates
+              {t("available_dates")}
               <button onClick={() => fetchCityInfo(true)} disabled={refreshing}>
                 <RefreshCwIcon
                   className={cn("h-5 w-5", refreshing && "animate-spin")}

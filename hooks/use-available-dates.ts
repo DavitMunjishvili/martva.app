@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useBrowserNotifications } from "@/hooks/use-notification";
 import { REFETCH_INTERVAL } from "@/lib/config";
+import { useTranslations } from "next-intl";
 
 export interface BookingDate {
   bookingDate: string;
@@ -21,6 +22,7 @@ export interface AvailableDatesResponse {
 }
 
 export function useAvailableDates() {
+  const t = useTranslations();
   const [centers, setCenters] = useState<Center[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -56,19 +58,19 @@ export function useAvailableDates() {
 
         if (isRefresh) {
           toast({
-            title: "✨ Data refreshed!",
-            description: "Latest availability information loaded successfully.",
+            title: t("data_refreshed"),
+            description: t("data_refreshed_description"),
           });
           showNotification({
-            title: "✨ Data refreshed!",
-            body: "Latest availability information loaded successfully.",
+            title: t("data_refreshed"),
+            body: t("data_refreshed_description"),
           });
         }
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "An error occurred";
         toast({
-          title: "❌ Oops! Something went wrong",
+          title: t("oops_something_went_wrong"),
           description: errorMessage,
           variant: "destructive",
         });

@@ -1,8 +1,11 @@
 "use client";
 
 import { Clock } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function EmptyState() {
+  const t = useTranslations();
+
   return (
     <div className="text-center py-12">
       <div className="relative mb-6">
@@ -12,14 +15,13 @@ export function EmptyState() {
         </span>
       </div>
       <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
-        All slots taken!
+        {t("all_slots_taken")}
       </h3>
       <p className="text-gray-600 dark:text-gray-400 mb-4">
-        Looks like all available hours were booked before you could get them.
-        These slots go fast! 🏃‍♂️💨
+        {t("all_slots_taken_description")}
       </p>
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        Try selecting a different date or check back later.
+        {t("try_different_date")}
       </p>
     </div>
   );

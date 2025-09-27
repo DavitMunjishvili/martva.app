@@ -20,10 +20,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// TODO: localization for this
 export const metadata: Metadata = {
   title: "Driver's License Available Slots",
   description: "Find available slots for II stage of driving license",
 };
+
 type RootLayoutProps = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
