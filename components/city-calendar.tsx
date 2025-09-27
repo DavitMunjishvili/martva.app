@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { isSameDay, parse } from "date-fns";
+import { enUS, ka } from "react-day-picker/locale";
+import { useLocale } from "next-intl";
 
 interface BookingDate {
   bookingDate: string;
@@ -22,6 +24,7 @@ export function CityCalendar({
   dates,
   onDateSelect,
 }: CityCalendarProps) {
+  const locale = useLocale();
   const [currentMonth, setCurrentMonth] = useState(
     parse(dates[0].bookingDate, "dd-MM-yyyy", new Date()),
   );
@@ -57,6 +60,7 @@ export function CityCalendar({
 
   return (
     <Calendar
+      locale={locale === "ka" ? ka : enUS}
       weekStartsOn={1}
       showOutsideDays={false}
       mode="single"

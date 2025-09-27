@@ -7,12 +7,15 @@ import { useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, RefreshCwIcon } from "lucide-react";
-import Link from "next/link";
 
 import { useDateSelection } from "@/hooks/use-date-selection";
 import { TimeSlotsModal } from "@/components/time-slots-modal";
+import { Link } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
+import { enUS, ka } from "react-day-picker/locale";
 
 export default function CityCalendarPage() {
+  const locale = useLocale();
   const params = useParams();
   const cityId = Number.parseInt(params.cityId as string);
 
@@ -61,7 +64,10 @@ export default function CityCalendarPage() {
     <>
       <div className="w-full h-full flex flex-col items-center justify-center">
         <div className="flex items-center justify-between w-full max-w-xs mb-4">
-          <Link href="/" className="flex items-center gap-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          >
             <ArrowLeft className="w-5 h-5" />
             Back
           </Link>
@@ -80,6 +86,7 @@ export default function CityCalendarPage() {
           </CardHeader>
           <CardContent className="my-auto">
             <Calendar
+              locale={locale === "ka" ? ka : enUS}
               weekStartsOn={1}
               showOutsideDays={false}
               mode="single"

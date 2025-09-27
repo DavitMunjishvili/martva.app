@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, ExternalLinkIcon, MapPin } from "lucide-react";
 import { CityCalendar } from "@/components/city-calendar";
 import type { Center } from "@/hooks/use-available-dates";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 
 interface CenterCardProps {
   center: Center;
