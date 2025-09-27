@@ -4,14 +4,9 @@ import { useAvailableDates } from "@/hooks/use-available-dates";
 import { useDateSelection } from "@/hooks/use-date-selection";
 import { CentersGrid } from "@/components/booking/centers-grid";
 import { TimeSlotsModal } from "@/components/time-slots-modal";
-import { Button } from "@/components/ui/button";
-import { RefreshCw } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { RefreshControl } from "@/components/booking/refresh-control";
 
 export default function BookingSystem() {
-  const tLastUpdated = useTranslations("last_updated");
-  const t = useTranslations();
   const { centers, loading, refreshing, lastUpdated, fetchAvailableDates } =
     useAvailableDates();
 
@@ -22,51 +17,13 @@ export default function BookingSystem() {
     fetchAvailableDates(true);
   };
 
-  const [lastUpdatedPeriod, setLastUpdatedPeriod] = useState<string>(
-    tLastUpdated("seconds_ago", { count: 0 }),
-  );
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (lastUpdated) {
-        const now = new Date();
-        const diff = now.getTime() - lastUpdated.getTime();
-
-        const minutes = Math.floor(diff / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        if (minutes === 0) {
-          setLastUpdatedPeriod(tLastUpdated("seconds_ago", { count: seconds }));
-        } else {
-          setLastUpdatedPeriod(
-            tLastUpdated("minutes_seconds_ago", { minutes, seconds }),
-          );
-        }
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [lastUpdated, tLastUpdated]);
-
   return (
     <>
-      <div className="flex justify-end items-center mb-6">
-        <div className="flex items-center gap-4">
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {tLastUpdated("label", { time: lastUpdatedPeriod })}
-          </p>
-          <Button
-            onClick={handleRefresh}
-            disabled={refreshing}
-            variant="outline"
-            className="rounded-full border-2 hover:scale-105 transition-transform"
-          >
-            <RefreshCw
-              className={`w-4 h-4 mr-2 ${refreshing ? "animate-spin" : ""}`}
-            />
-            {t("refresh")}
-          </Button>
-        </div>
-      </div>
+      <RefreshControl
+        lastUpdated={lastUpdated}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+      />
 
       <CentersGrid
         centers={centers}
@@ -84,3 +41,4 @@ export default function BookingSystem() {
     </>
   );
 }
+
